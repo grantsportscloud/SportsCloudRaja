@@ -1,0 +1,507 @@
+@charset "utf-8";
+/* CSS Document */
+
+
+@media (max-width: 1200px){
+}
+
+@media (max-width: 992px) {
+}
+
+@media (max-width: 1024px) {
+    .logo{
+       text-align: center;
+    }
+    .nav-header{
+        display: block;
+        margin-top: 10px;
+    }
+    .dashboard-main-content{
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+    .dashboard-main{
+        flex-direction: column;
+    }
+    .dashboard-side-bar{
+        width: 100%;
+    }
+    .dashboard-head{
+        flex-direction: column;
+    }
+    .teams-select{
+        width: 100%;
+    }
+    .create-teams{
+        margin-left: 0;
+    }
+    .create-teams button{
+        width: 100%;
+    }
+    .create-teams{
+        width: 100%;
+        margin-top: 10px;
+    }
+    .profile-head{
+        width: 100%;
+        margin-left: 0;
+        margin-top: 10px;
+        width: auto;
+    }
+    .dashboard-top-content{
+        flex-direction: column;
+    }
+    .dashboard-top-content-left{
+        width: 100%;
+    }
+    .dashboard-top-content-left-top{
+        flex-direction: column;
+    }
+    .team-profile{
+        width: 100%;
+    }
+    .dublin-weather{
+        width: 100%;
+        margin-left: 0;
+        padding: 20px;
+    }
+    .dashboard-top-content-right{
+        margin-left: 0;
+        width: 100%;
+        margin-top: 20px;
+    }
+    .dashboard-schedule-game-event{
+        flex-direction: column;
+    }
+    .dashboard-schedule-game-event-calender{
+        width: 100%;
+    }
+    .dashboard-schedule-game-event-text{
+        padding-left: 0;
+        width: 100%;
+        margin-top: 15px;
+    }
+    .team-list-section{
+        padding: 15px 10px;
+    }
+    .team-list-box-text h6{
+        font-size: 10px;
+    }
+    .team-list-box-img{
+        width: 40px;
+    }
+    .team-list-box-img img{
+        width: 40px;
+        height: 40px;
+        border-width: 2px;
+    }
+    .team-list-box-text h4{
+        font-size: 14px;
+        padding-right: 68px;
+    }
+    .team-list-box-text h5{
+        font-size: 12px;
+    }
+    .dashboard-schedule-section{
+        margin-top: 20px;
+    }
+    .team-list-head{
+        padding: 15px;
+    }
+    .team-list-head h2{
+        font-size: 16px;
+    }
+    .team-list-head a{
+        font-size: 12px;
+        height: 35px;
+        line-height: 35px;
+    }
+    .dashboard-schedule-head h2{
+        font-size: 16px;
+    }
+    .dashboard-schedule-head a{
+        font-size: 13px;
+        padding: 0 10px;
+    }
+    .dashboard-schedule-head{
+        padding: 15px;
+    }
+    .options-radio{
+        margin-right: 30px;
+    }
+    .dashboard-schedule-main-box{
+        padding: 15px;
+    }
+    .dashboard-schedule-game-event-text h2{
+        font-size: 16px;
+    }
+    .dashboard-schedule-game-event-text ul li a{
+        font-size: 12px;
+    }
+    .reminder-btn{
+        width: 100%;
+        height: 50px;
+        font-size: 12px;
+    }
+    .options-radio{
+        font-size: 14px;
+        padding-left: 30px;
+    }
+     .options-radio .checkmark:after {
+        left: 2px;
+        top: 2px;
+        width: 12px;
+        height: 12px;
+    }
+    .checkmark{
+        width: 20px;
+        height: 20px;
+    }
+    .record-standing_section{
+        flex-direction: column;
+        margin-top: 0px;
+    }
+    .record-standing-box{
+        width: 100%;
+        margin-top: 15px;
+    }
+    .record-standing-head{
+        padding: 15px;
+        font-size: 16px;
+    }
+    .record-standing-box-inner{
+        padding: 15px;
+    }
+    .record-main-top-left h4{
+        font-size: 16px;
+    }
+    .record-main-top-left span{
+        font-size: 12px;
+    }
+    .record-main-top-right button {
+        width: 85px;
+        height: 30px;
+        font-weight: normal;
+        font-size: 12px;
+    }
+    .standing-table{
+        overflow: auto;
+        
+    }
+    .standing-table table{
+        width: 500px;
+    }
+    .footer{
+        flex-direction: column;
+    }
+    .footer .copy-right{
+        text-align: center;
+        font-size: 14px;
+    }
+    .social-icon-footer{
+        margin-top: 15px;
+    }
+    
+    .nav-header{
+        background: #000;
+        padding: 8px 15px;
+        
+    }
+    .nav-header button{
+        width: 40px;
+        height: 35px;
+        border: 1px solid #fff;
+        background: none;
+        outline: 0;
+        border-radius: 4px;
+        
+    }
+    .nav-header button span{
+        display: block;
+        width: 100%;
+        height: 2px;
+        margin-bottom: 5px;
+        background: #fff;
+    }
+    .nav-header button span:last-child{
+        margin-bottom: 0;
+    }
+    .menulist{
+        display: none;
+        position: absolute;
+        left: 0;
+        top: 108px;
+        width: 100%;
+        background: #2c2c2c;
+        z-index: 99;
+        padding: 0 10px 0 0;
+    }
+    .menulist ul li a{
+        padding-top: 14px;
+        padding-bottom: 14px;
+    }
+    .menulist ul li{
+        margin-bottom: 5px;
+    }
+    .invoice-due{
+        width: 100%;
+        margin-left: 0;
+        padding: 25px;
+        margin-top: 20px;
+    }
+    .dashboard-top-content-left-bottom{
+        margin-top: 20px;
+    }
+    .dublin-weather-bottom {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+    .dublin-weather-bottom-boxes{
+        width: 48%;
+        margin-bottom: 10px;
+    }
+    
+    .player-schedule-section{
+        flex-direction: column;
+        margin-top: 5px;
+    }
+    .record-standing-box{
+        padding: 20px;
+    }
+    .record-standing-head{
+        padding: 0;
+    }
+    .record-standing-box-inner{
+        padding: 0;
+    }
+    .dashboard-schedule-section{
+        width: 100%;
+    }
+    .record-save-section{
+        flex-direction: column;
+        margin-top: 20px;
+    }
+    .record-save-box{
+        width: 100%;
+        padding: 15px;
+    }
+    .enter-result{
+        margin-top: 30px;
+    }
+    .record-main-top h4{
+        font-size: 18px;
+    }
+    .record-main-top span{
+        font-size: 16px;
+    }
+    .save-travel{
+        width: 100%;
+        margin-top: 20px;
+        padding: 15px;
+    }
+    .myteam-teamsnap-section{
+        flex-direction: column;
+    }
+    .teamsnap-section{
+        width: 100%;
+        margin-top: 20px;
+        padding: 15px;
+    }
+    .teamsnap-section-head{
+        padding-left: 0;
+        padding-right: 0;
+        padding-top: 0px;
+        padding-bottom: 15px;
+    }
+    .teamsnap-section-head h2{
+        font-size: 15px;
+    }
+    .teamsnap-section-head a {
+    font-size: 12px;
+    height: 35px;
+    line-height: 35px;
+}
+    .teamsnap-section-main{
+        padding-left: 0;
+        padding-right: 0;
+        padding-bottom: 15px;
+    }
+    .dublin-weather h2{
+        font-size: 16px;
+    }
+    .dublin-weather-bottom-boxes h3{
+        font-size: 16px;
+    }
+    .invoice-due h2{
+        font-size: 18px;
+    }
+    .team-list-box{
+        padding: 8px 10px;
+    }
+    .team-list-box-text a{
+        font-size: 13px;
+    }
+    .save-on-travel h4{
+        font-size: 16px;
+    }
+    .record-save-box-inner{
+        padding: 20px 10px;
+    }
+    .save-on-travel p{
+        font-size: 14px;
+    }
+    .save-on-travel a{
+        font-size: 14px;
+        width: 200px;
+    }
+    .login-account{
+        margin-left: 0;
+    }
+    .my-order-section a{
+        margin: 0 auto;
+    }
+    .team-shop-list-box{
+        padding: 20px 15px;
+    }
+    .liability-box{
+        padding: 15px;
+        width: 100%;
+    }
+    .team-payment{
+        overflow: auto;
+    }
+    .team-payment table{
+        width: 1030px;
+    }
+    .team-roaser-head{
+        flex-direction: column;
+        justify-content: center;
+    }
+    .team-roaser-head-right{
+        flex-direction: column;
+        justify-content: center;
+        display: flex;
+    }
+    .team-roaser-head .team-roaser-head-right select{
+        width: 100%;
+    }
+    .team-roaser-head-right button.team-roaser-head-btn{
+        margin-left: 0;
+        margin-top: 15px;
+    }
+    .team-roaster-table-head{
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+        padding: 15px;
+    }
+    .player-info-head{
+        flex-direction: column;
+        justify-content: space-between;
+    }
+    .player-info-head-right{
+        text-align: center;
+    }
+    .player-info-head .player-info-head-right button.edit-btn{
+        margin-bottom: 10px;
+    }
+}
+
+@media(max-width:767px){
+    .team-shop-product-box{
+        width: 100%;
+        margin-bottom: 10px;
+        padding: 15px;
+    }
+    .team-shop-product-text{
+        margin-top: 15px;
+    }
+    .team-shop-product-text h2.product-title{
+        font-size: 18px;
+    }
+    .team-shop-product-text p.product-description{
+        font-size: 15px;
+    }
+    .team-shop-product-text .product-price{
+        font-size: 17px;
+    }
+    .team-shop-product-text .product-size{
+        font-size: 16px;
+    }
+    .prefarance-box{
+        margin-top: 25px;
+    }
+    .page-title{
+        font-size: 22px;
+    }
+    .prefarance-box{
+        flex-direction: column;
+    }
+    .prefarance-box ul.nav-tabs{
+        width: 100%;
+        padding: 15px;
+    }
+    .prefarance-box .tab-content{
+        width: 100%;
+        padding: 15px;
+    }
+    .prefarance-tab-content h2{
+        font-size: 17px;
+        line-height: 25px;
+    }
+    .prefarance-form-list label{
+        margin-bottom: 10px;
+        font-size: 16px;
+    }
+    .prefarance-form-list-box{
+        flex-direction: column;
+    }
+    .prefarance-form-list-box .input-select{
+        width: 100%;
+    }
+    .prefarance-form-list-box p{
+        width: 100%;
+        padding-left: 0;
+        margin-top: 10px;
+        font-size: 15px;
+    }
+    .prefarance-page{
+        min-height: 600px;
+    }
+    .liability-box{
+        width: 100%;
+        padding: 15px;
+        margin: 0;
+    }
+    .player-details-section{
+        flex-direction: column;
+        text-align: center;
+    }
+    .liability-form{
+        flex-direction: column;
+    }
+    .liability-form-input{
+        width: 100%;
+    }
+    
+    .page-header{
+        flex-direction: column;
+    }
+    .page-header .add-new-btn {
+        width: 120px;
+        height: 42px;
+        font-size: 14px;
+        line-height: 42px;
+}
+    .page-header .view-preferance{
+        width: 150px;
+        height: 42px;
+        font-size: 14px;
+        line-height: 42px;
+    }
+    .assesment-modal .modal-content{
+        padding: 0;
+    }
+    
+}
