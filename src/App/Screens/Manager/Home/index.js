@@ -57,75 +57,71 @@ function ManagerHome(props) {
 
   return (
     <div>
-      
-       <div class="dashboard-container">
-       <div class="dashboard-main">
-           <SideMenuComponents />
-           <div class="dashboard-main-content">
+
+      <div class="dashboard-container">
+        <div class="dashboard-main">
+          <SideMenuComponents />
+          <div class="dashboard-main-content">
             <div class="dashboard-head">
               <div class="teams-select">
+                <button class="create-new-team">Create New Teams</button>
                 <select>
                   <option>My Teams</option>
                   <option>My Teams 2</option>
                   <option>My Teams 3</option>
                 </select>
+                <select>
+                  <option>Account</option>
+                  <option>Account 2</option>
+                  <option>Account 3</option>
+                </select>
               </div>
-              {/* <!--
-                   <div class="create-teams">
-                <button><img src="images/add-team.png" alt="" /> Create New Team</button>
-              </div>
-              --> */}
-              <div class="profile-head">
-                <div class="profile-head-name">{user ? user.fname : null}</div>
-                <div class="profile-head-img">
-                  {
-                    user ?
-                      <img src={user.profile_image} alt="" /> :
-                      <img src={UserProfile} alt="" />
-                  }
 
+              <div class="profile-head">
+                <div class="profile-head-name">John Doe</div>
+                <div class="profile-head-img">
+                  <img src="images/user-profile.png" alt="" />
                 </div>
               </div>
-              <div class="login-account">
-                <ul>
-                  <li><a href="#" data-toggle="modal" data-target="#myModallogin" onClick={handleLogout}>Logout</a></li>
-                  {/* <li><a href="#" data-toggle="modal" data-target="#myModalregister" onClick={handleLogout}>Logout</a></li> */}
-                </ul>
-              </div>
+
             </div>
             <div class="dashboard-top-content">
               <div class="dashboard-top-content-left">
                 <div class="dashboard-top-content-left-top">
                   <div class="team-profile">
                     <div class="team-profile-img">
-                      <img src={BigUserProfile} alt="" />
+                      <img src="images/big-user-profile.png" alt="" />
                     </div>
                     <div class="team-profile-name">
                       John Doe
                                 </div>
                     <div class="update-team-photo">
-                      Update Player Photo
-                                    <input type="file" />
+                      Update Team Photo
+                            <input type="file" />
                     </div>
                   </div>
 
                   <div class="invoice-due">
-                    <div class="ionice-due-inner">
-                      <h2>Invoices Due</h2>
-                      <div class="invoice-icon">
-                        <img src={Invoice} alt="" />
+                    <div class="create-new-team-section">
+                      <div class="create-new-team-banner">
+                        <img src="images/team-photo.png" alt="" />
                       </div>
-
-                      <p>No invoices currently due.</p>
-                      <span>Thank you for being awesome!</span>
-
+                      <div class="create-new-team-text">
+                        <h3>Did you know XYZ supports over 100 different sports & activities?</h3>
+                        <p>Use XYZ for everything from soccer, football or baseball to scouts,gaming or book clubs. It’s easy to start a new group. Try it today!</p>
+                        <button>Create New Team</button>
+                      </div>
                     </div>
+
                   </div>
 
                 </div>
                 <div class="dashboard-top-content-left-bottom">
                   <div class="dublin-weather">
-                    <h2>Local Weather</h2>
+
+                    <h2>Dublin-Weather</h2>
+
+
                     <div class="dublin-weather-bottom">
                       <div class="dublin-weather-bottom-boxes">
                         <h3>Today</h3>
@@ -138,17 +134,17 @@ function ManagerHome(props) {
                       </div>
                       <div class="dublin-weather-bottom-boxes">
                         <h3>Sat</h3>
-                        <img src={Cloudy} alt="" />
+                        <img src="images/cloudy-small.png" alt="" />
                         <h6>66˚ <span>48˚</span></h6>
                       </div>
                       <div class="dublin-weather-bottom-boxes">
                         <h3>Sun</h3>
-                        <img src={Cloudy} alt="" />
+                        <img src="images/cloudy-small.png" alt="" />
                         <h6>66˚ <span>48˚</span></h6>
                       </div>
                       <div class="dublin-weather-bottom-boxes">
                         <h3>Mon</h3>
-                        <img src={Cloudy} alt="" />
+                        <img src="images/cloudy-small.png" alt="" />
                         <h6>66˚ <span>48˚</span></h6>
                       </div>
                     </div>
@@ -157,48 +153,48 @@ function ManagerHome(props) {
               </div>
               <div class="dashboard-top-content-right">
                 <div class="team-list-head">
-                  <h2>Team Roster</h2>
+                  <h2>Team</h2>
                   <a href="#">View All</a>
                 </div>
                 <div class="team-list-section">
                   <div class="team-list-box">
                     <div class="team-list-box-img">
-                      <img src={teamList} alt="" />
+                      <img src="images/team-list.png" alt="" />
                     </div>
                     <div class="team-list-box-text">
                       <h4>Chicago Bulls</h4>
                       <h5>Tab D’souza  <span>Administrative</span></h5>
-                      <a href="#">Go to Users Details</a>
+                      <a href="#">Team Roster</a>
                     </div>
                   </div>
                   <div class="team-list-box">
                     <div class="team-list-box-img">
-                      <img src={teamList} alt="" />
+                      <img src="images/team-list.png" alt="" />
                     </div>
                     <div class="team-list-box-text">
                       <h4>Boston Nets</h4>
                       <h5>Tab D’souza  <span>Manager</span></h5>
-                      <a href="#">Go to Users Details</a>
+                      <a href="#">Team Roster</a>
                     </div>
                   </div>
                   <div class="team-list-box">
                     <div class="team-list-box-img">
-                      <img src={teamList} alt="" />
+                      <img src="images/team-list.png" alt="" />
                     </div>
                     <div class="team-list-box-text">
                       <h4>Brooklyn Nets</h4>
                       <h5>Tab D’souza  <span>Player</span></h5>
-                      <a href="#">Go to Users Details</a>
+                      <a href="#">Team Roster</a>
                     </div>
                   </div>
                   <div class="team-list-box">
                     <div class="team-list-box-img">
-                      <img src={teamList} alt="" />
+                      <img src="images/team-list.png" alt="" />
                     </div>
                     <div class="team-list-box-text">
                       <h4>Golden State Warriors</h4>
                       <h5>Tab D’souza  <span>Administrative</span></h5>
-                      <a href="#">Go to Users Details</a>
+                      <a href="#">Team Roster</a>
                     </div>
                   </div>
 
@@ -208,60 +204,12 @@ function ManagerHome(props) {
               </div>
             </div>
             <div class="player-schedule-section">
+
               <div class="record-standing-box">
-                <div class="record-standing-head">
-                  Player Status
-                        </div>
-                <div class="record-standing-box-inner">
-                  <div class="standing-table">
-                    <table>
-                      <tr>
-                        <th>Team</th>
-                        <th>2 Pointers</th>
-                        <th>3 Pointers</th>
-                        <th>Free Throws</th>
-                      </tr>
-                      <tr>
-                        <td>Dubcity  Blue</td>
-                        <td>8</td>
-                        <td>5</td>
-                        <td>0</td>
-                      </tr>
-                      <tr>
-                        <td>Dubcity  Blue</td>
-                        <td>8</td>
-                        <td>5</td>
-                        <td>0</td>
-                      </tr>
-                      <tr>
-                        <td>Dubcity  Blue</td>
-                        <td>8</td>
-                        <td>5</td>
-                        <td>0</td>
-                      </tr>
-                      <tr>
-                        <td>Dubcity  Blue</td>
-                        <td>8</td>
-                        <td>5</td>
-                        <td>0</td>
-                      </tr>
-                      <tr>
-                        <td>Dubcity  Blue</td>
-                        <td>8</td>
-                        <td>5</td>
-                        <td>0</td>
-                      </tr>
-                      <tr>
-                        <td>Dubcity  Blue</td>
-                        <td>8</td>
-                        <td>5</td>
-                        <td>0</td>
-                      </tr>
-
-
-                    </table>
-                  </div>
+                <div class="pie-chat-total-income">
+                  <img src="images/piechat.png" alt="" />
                 </div>
+
               </div>
 
               <div class="dashboard-schedule-section">
@@ -283,7 +231,7 @@ function ManagerHome(props) {
                   </div>
                   <div class="dashboard-schedule-game-event">
                     <div class="dashboard-schedule-game-event-calender">
-                      <img src={Calender} alt="" />
+                      <img src="images/calender.png" alt="" />
                     </div>
 
                   </div>
@@ -306,101 +254,58 @@ function ManagerHome(props) {
 
                   </div>
                   <div class="record-line-bar">
-                    <img src={lineBar} alt="" />
+                    <img src="images/line-bar.png" alt="" />
                   </div>
                   <div class="enter-result">
                     <button class="enter-result-btn">Enter Result</button>
                   </div>
                 </div>
               </div>
-              <div class="save-travel">
-                <div class="record-standing-head">
-                  Save on Travel
+              <div class="save-travel tb-section">
+                <div class="standing-tb-section">
+                  <div class="record-standing-head">
+                    Standings
                         </div>
-                <div class="record-save-box-inner">
-                  <div class="save-on-travel">
-                    <div class="save-on-travel-img">
-                      <img src={saveTravel} alt="" />
+
+
+                  <div class="record-standing-box-inner">
+                    <div class="standing-table">
+                      <table>
+                        <tr>
+                          <th>Team</th>
+                          <th>Wins</th>
+                          <th>Losses</th>
+                          <th>Ties</th>
+                        </tr>
+                        <tr>
+                          <td>Dubcity  Blue</td>
+                          <td>8</td>
+                          <td>5</td>
+                          <td>0</td>
+                        </tr>
+                        <tr>
+                          <td>Dubcity  Blue</td>
+                          <td>8</td>
+                          <td>5</td>
+                          <td>0</td>
+                        </tr>
+                        <tr>
+                          <td>Dubcity  Blue</td>
+                          <td>8</td>
+                          <td>5</td>
+                          <td>0</td>
+                        </tr>
+                      </table>
                     </div>
-                    <h4>TeamSnap for Clubs & Leagues</h4>
-                    <p>If TeamSnap has joined up with HotelPlanner to provide exclusive hotel discounts to TeamSnap users. Save on your next away game, get group discounts and save on personal travel tool!</p>
-                    <a href="#">Browse Travel Deals</a>
                   </div>
                 </div>
-              </div>
-
-            </div>
-            <div class="myteam-teamsnap-section">
-              <div class="record-save-box">
-                <div class="record-standing-head">
-                  My Teams
-                        </div>
-                <div class="myteam-list-section">
-                  <div class="team-list-box">
-                    <div class="team-list-box-img">
-                      <img src={bullk} alt="" />
-                    </div>
-                    <div class="team-list-box-text">
-                      <h4>Chicago Bulls</h4>
-                      <div class="my-team-details">
-                        <div class="name">John Doe</div>
-                        <div class="category">Player</div>
-                        <div class="season">Spring Season</div>
-                      </div>
-
-                    </div>
-                  </div>
-
-                  <div class="team-list-box">
-                    <div class="team-list-box-img">
-                      <img src={bullk} alt="" />
-                    </div>
-                    <div class="team-list-box-text">
-                      <h4>8U Team-Red</h4>
-                      <div class="my-team-details">
-                        <div class="name">Daniel Carison</div>
-                        <div class="category">Player</div>
-                        <div class="season">New Season</div>
-                      </div>
-
-                    </div>
-                  </div>
-
-
-
-                </div>
-              </div>
-              <div class="teamsnap-section">
-                <div class="teamsnap-section-head">
-                  <h2>The TeamSnap Blog</h2>
-                  <a href="#">View All</a>
-                </div>
-                <div class="teamsnap-section-main">
-                  <div class="teamsnap-list-box">
-                    <p>You Can Help Save Youth Sports in 30 Seconds.</p>
-                    <span>May 7, 2021</span>
-                  </div>
-                  <div class="teamsnap-list-box">
-                    <p>You Can Help Save Youth Sports in 30 Seconds.</p>
-                    <span>May 7, 2021</span>
-                  </div>
-                  <div class="teamsnap-list-box">
-                    <p>You Can Help Save Youth Sports in 30 Seconds.</p>
-                    <span>May 7, 2021</span>
-                  </div>
-                  <div class="teamsnap-list-box">
-                    <p>You Can Help Save Youth Sports in 30 Seconds.</p>
-                    <span>May 7, 2021</span>
-                  </div>
-                </div>
-
               </div>
             </div>
-            <Footer/>
+            <Footer />
           </div>
-          </div>  
         </div>
-        </div>  
+      </div>
+    </div>
   );
 }
 
