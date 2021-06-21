@@ -22,6 +22,7 @@ import Calender from "../../../images/calender.png"
 import lineBar from "../../../images/line-bar.png"
 import saveTravel from "../../../images/save-travel.png"
 import bullk from "../../../images/bullk.png"
+import piechat from "../../../images/piechat.png"
 import SideMenuComponents from "../../../Components/SideMenu"
 import Footer from "../../../Components/Footer"
 import { useDispatch } from 'react-redux';
@@ -80,7 +81,11 @@ function ManagerHome(props) {
               <div class="profile-head">
                 <div class="profile-head-name">John Doe</div>
                 <div class="profile-head-img">
-                  <img src="images/user-profile.png" alt="" />
+                {
+                    user ?
+                      <img src={user.profile_image} alt="" /> :
+                      <img src={UserProfile} alt="" />
+                  }
                 </div>
               </div>
 
@@ -90,7 +95,7 @@ function ManagerHome(props) {
                 <div class="dashboard-top-content-left-top">
                   <div class="team-profile">
                     <div class="team-profile-img">
-                      <img src="images/big-user-profile.png" alt="" />
+                    <img src={BigUserProfile} alt="" />
                     </div>
                     <div class="team-profile-name">
                       John Doe
@@ -125,7 +130,7 @@ function ManagerHome(props) {
                     <div class="dublin-weather-bottom">
                       <div class="dublin-weather-bottom-boxes">
                         <h3>Today</h3>
-                        <img src="images/cloudy-small.png" alt="" />
+                        <img src={Cloudy} alt="" />
 
                         <div class="active-degree">
                           <span>53˚F</span>
@@ -134,17 +139,17 @@ function ManagerHome(props) {
                       </div>
                       <div class="dublin-weather-bottom-boxes">
                         <h3>Sat</h3>
-                        <img src="images/cloudy-small.png" alt="" />
+                        <img src={Cloudy} alt="" />
                         <h6>66˚ <span>48˚</span></h6>
                       </div>
                       <div class="dublin-weather-bottom-boxes">
                         <h3>Sun</h3>
-                        <img src="images/cloudy-small.png" alt="" />
+                        <img src={Cloudy} alt="" />
                         <h6>66˚ <span>48˚</span></h6>
                       </div>
                       <div class="dublin-weather-bottom-boxes">
                         <h3>Mon</h3>
-                        <img src="images/cloudy-small.png" alt="" />
+                        <img src={Cloudy} alt="" />
                         <h6>66˚ <span>48˚</span></h6>
                       </div>
                     </div>
@@ -159,7 +164,7 @@ function ManagerHome(props) {
                 <div class="team-list-section">
                   <div class="team-list-box">
                     <div class="team-list-box-img">
-                      <img src="images/team-list.png" alt="" />
+                    <img src={teamList} alt="" />
                     </div>
                     <div class="team-list-box-text">
                       <h4>Chicago Bulls</h4>
@@ -169,7 +174,7 @@ function ManagerHome(props) {
                   </div>
                   <div class="team-list-box">
                     <div class="team-list-box-img">
-                      <img src="images/team-list.png" alt="" />
+                    <img src={teamList} alt="" />
                     </div>
                     <div class="team-list-box-text">
                       <h4>Boston Nets</h4>
@@ -179,7 +184,7 @@ function ManagerHome(props) {
                   </div>
                   <div class="team-list-box">
                     <div class="team-list-box-img">
-                      <img src="images/team-list.png" alt="" />
+                    <img src={teamList} alt="" />
                     </div>
                     <div class="team-list-box-text">
                       <h4>Brooklyn Nets</h4>
@@ -189,7 +194,7 @@ function ManagerHome(props) {
                   </div>
                   <div class="team-list-box">
                     <div class="team-list-box-img">
-                      <img src="images/team-list.png" alt="" />
+                    <img src={teamList} alt="" />
                     </div>
                     <div class="team-list-box-text">
                       <h4>Golden State Warriors</h4>
@@ -207,7 +212,7 @@ function ManagerHome(props) {
 
               <div class="record-standing-box">
                 <div class="pie-chat-total-income">
-                  <img src="images/piechat.png" alt="" />
+                  <img src={piechat} alt="" />
                 </div>
 
               </div>
@@ -231,7 +236,7 @@ function ManagerHome(props) {
                   </div>
                   <div class="dashboard-schedule-game-event">
                     <div class="dashboard-schedule-game-event-calender">
-                      <img src="images/calender.png" alt="" />
+                      <img src={Calender} alt="" />
                     </div>
 
                   </div>
@@ -254,7 +259,7 @@ function ManagerHome(props) {
 
                   </div>
                   <div class="record-line-bar">
-                    <img src="images/line-bar.png" alt="" />
+                    <img src={lineBar} alt="" />
                   </div>
                   <div class="enter-result">
                     <button class="enter-result-btn">Enter Result</button>

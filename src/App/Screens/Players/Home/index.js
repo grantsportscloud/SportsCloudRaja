@@ -128,7 +128,7 @@ function HomeComponents(props) {
                     <div class="dublin-weather-bottom">
                       <div class="dublin-weather-bottom-boxes">
                         <h3>Today</h3>
-                        <img src="images/cloudy-small.png" alt="" />
+                        <img src={Cloudy} alt="" />
 
                         <div class="active-degree">
                           <span>53˚F</span>
