@@ -26,6 +26,7 @@ import face from "../../images/Face.png"
 
 
 function SideMenuComponents(props) {
+  console.log("props-----",props.manger)
   const history = useHistory();
 
   const [userMe, setUser] = useState(null);
@@ -66,30 +67,75 @@ function SideMenuComponents(props) {
           </button>
         </div>
         <div class="menulist">
-          <ul>
+          {
+            props.manger == "manger" ?
+            <ul>
             <Link to="/">
               <li><a href="#" class="menu1 active">Team Home</a></li>
             </Link>
             <Link to="/teamroster">
               <li><a href="#" class="menu2">Team Roster</a></li>
-            </Link>
+            </Link >
+            <Link to="/playerschdule">
             <li><a href="#" class="menu3">Team Schedule</a></li>
-            <li><a href="#" class="menu4">Player Availability</a></li>
+            </Link>
+           
+            <li><a href="#" class="menu4">Team Availability</a></li>
             <Link to="/teamshop">
-              <li><a href="#" class="menu5">Team Shop</a></li>
+              <li><a href="#" class="menu5">Team Store</a></li>
             </Link>
             <li><a href="#" class="menu6">Score Keeper</a></li>
             <Link to="/playerassignments">
-              <li><a href="#" class="menu7">Player Assignment</a></li>
+              <li><a href="#" class="menu7">Team Assignment</a></li>
             </Link>
-            <li><a href="#" class="menu8">Player Media</a></li>
-            <li><a href="#" class="menu9">Player Messages</a></li>
+            <li><a href="#" class="menu8">Team Media</a></li>
+            <li><a href="#" class="menu9">Team Messages</a></li>
             <Link to="/preferance">
-              <li><a href="#" class="menu10">Player Preferences</a></li>
+              <li><a href="#" class="menu10">Team Preferences</a></li>
             </Link>
-            <li><a href="#" class="menu11">Liability Waiver</a></li>
-            <li><a href="#" class="menu12" >Team Payments</a></li>
+            <li><a href="#" class="menu11">Team Settings</a></li>
+            <li><a href="#" class="menu12">Tournament Organizer</a></li>
+            <li><a href="#" class="menu13">Team Store</a></li>
+            <li><a href="#" class="menu14">Website Administration</a></li>
+            <li><a href="#" class="menu15">player Liability Waiver</a></li>
+            <li><a href="#" class="menu16" >Invoicing</a></li>
           </ul>
+          :
+          
+          <ul>
+          <Link to="/">
+            <li><a href="#" class="menu1 active">Team Home</a></li>
+          </Link>
+          <Link to="/teamroster">
+            <li><a href="#" class="menu2">Team Roster</a></li>
+          </Link>
+          <Link to="/playerschdule">
+          <li><a href="#" class="menu3">Team Schedule</a></li>
+          </Link>
+          <li><a href="#" class="menu4">Player Availability</a></li>
+          <Link to="/teamshop">
+            <li><a href="#" class="menu5">Team Shop</a></li>
+          </Link>
+          <li><a href="#" class="menu6">Score Keeper</a></li>
+          <Link to="/playerassignments">
+            <li><a href="#" class="menu7">Player Assignment</a></li>
+          </Link>
+          <Link to="/playermedia">
+          <li><a href="#" class="menu8">Player Media</a></li>
+          </Link>
+          <li><a href="#" class="menu9">Player Messages</a></li>
+          <Link to="/preferance">
+            <li><a href="#" class="menu10">Player Preferences</a></li>
+          </Link>
+          <Link to = "liabilitywaiver">
+          <li><a href="#" class="menu11">Liability Waiver</a></li>
+          </Link>
+          <Link to="/payment">
+          <li><a href="#" class="menu12" >Team Payments</a></li>
+          </Link>
+        </ul>
+          }
+          
         </div>
       </div>
     </div>

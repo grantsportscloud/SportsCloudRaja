@@ -13,7 +13,6 @@ export const loginUser = (userdata) => {
 };
 
 export const logoutUser = () => {
-
   return async (dispatch) => {
     dispatch({
       type: LOGIN_USER,

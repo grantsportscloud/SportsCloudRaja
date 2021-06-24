@@ -99,6 +99,7 @@ p, ul, ol {
 .teams-select{
     display: flex;
     align-items: center;
+    width: auto;
 }
 .teams-select select{
     width: 260px;

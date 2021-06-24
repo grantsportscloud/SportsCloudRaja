@@ -20,7 +20,7 @@ import SideMenuComponents from "../../../Components/SideMenu"
 import Footer from "../../../Components/Footer"
 
 
-function PlayerAssignments(props) {
+function TeamSchedule(props) {
     const history = useHistory();
 
     const [userMe, setUser] = useState(null);
@@ -83,11 +83,28 @@ function PlayerAssignments(props) {
 
                         <div class="prefarance-page">
                             <div class="page-header">
-                                <h2 class="page-title">Assignments</h2>
-                                <div class="right-head-buttons">
-                                    <a href="#" class="add-new-btn" data-toggle="modal" data-target="#addassignment">Add New</a>
-                                    <a href="#" class="view-preferance" data-toggle="modal" data-target="#assignmentpreferance">View Preferences</a>
+                                <h2 class="page-title">Schedule</h2>
+                                <div class="streming-head-right">
+                                    <div class="stream-tab">
+                                        <ul>
+                                            <li><a class="active" href="#">List View</a></li>
+                                            <li><a href="#">Calendar View</a></li>
+
+                                        </ul>
+                                    </div>
+
+                                    <button class="start-stream-btn">Select Availability</button>
+                                    <button class="start-stream-btn">View Preferences</button>
+                                    <button class="start-stream-btn">Subscribe/ Export</button>
                                 </div>
+                            </div>
+                            <div class="manager-player-section">
+                                <h3>Manager:</h3>
+                                <ul>
+                                    <li><a href="#">New</a></li>
+                                    <li><a href="#">Edit</a></li>
+                                    <li><a href="#">Import</a></li>
+                                </ul>
                             </div>
                             <div class="prefarance-box">
                                 <div class="team-payment team-assesment">
@@ -108,7 +125,7 @@ function PlayerAssignments(props) {
                                                 </div>
                                                 <div class="game-name">
                                                     Dubcity Basketball
-                                                Practice</div>
+Practice</div>
                                             </td>
                                             <td><span>Oct 16, 2021</span></td>
                                             <td>
@@ -117,7 +134,7 @@ function PlayerAssignments(props) {
                                             <td>
                                                 <span>Eleanor Murray
 
-                                             Fallon Middle Schoo</span>
+Fallon Middle Schoo</span>
                                             </td>
                                             <td>Scorekeeper
                                     <div class="add-btn">
@@ -237,4 +254,4 @@ Fallon Middle Schoo</span>
     );
 }
 
-export default PlayerAssignments;
+export default TeamSchedule;

@@ -26,9 +26,12 @@ import piechat from "../../../images/piechat.png"
 import SideMenuComponents from "../../../Components/SideMenu"
 import Footer from "../../../Components/Footer"
 import { useDispatch } from 'react-redux';
+import { Network } from '../../../Services/Api';
+import { ToastContainer, toast } from 'react-toastify';
 
 
 function ManagerHome(props) {
+ 
   const history = useHistory();
   const dispatch = useDispatch()
 
@@ -45,6 +48,7 @@ function ManagerHome(props) {
     let userD = userLocal && userLocal._id ? true : false;
     setUser(userD);
     setUserData(userLocal);
+    listTeam()
   }, []);
 
   const handleLogout = () => {
@@ -54,6 +58,27 @@ function ManagerHome(props) {
     setUserData(null);
     props.history.push("/")
   };
+ 
+const listTeam = () => {
+  const user = JSON.parse(localStorage.getItem('user'));
+  if (user) {
+      let header = {
+          'authToken': user.authtoken
+      }
+      Network('api/my-team-list?team_manager_id=' + user._id ,'GET', header)
+          .then(async (res) => {
+            console.log("hello----",res)
+              if (res.response_code == 2000) {
+                 
+              } else if (res.response_code == 4000) {
+                  toast.error(res.response_message)
+              }
+          })
+          .catch((error) => {
+              console.log("error===>", error)
+          });
+  }
+}
 
 
   return (
@@ -61,7 +86,7 @@ function ManagerHome(props) {
 
       <div class="dashboard-container">
         <div class="dashboard-main">
-          <SideMenuComponents />
+          <SideMenuComponents manger= "manger"/>
           <div class="dashboard-main-content">
             <div class="dashboard-head">
               <div class="teams-select">
@@ -79,7 +104,7 @@ function ManagerHome(props) {
               </div>
 
               <div class="profile-head">
-                <div class="profile-head-name">John Doe</div>
+               <div class="profile-head-name">{user ? user.fname : null}</div>
                 <div class="profile-head-img">
                 {
                     user ?
@@ -88,6 +113,7 @@ function ManagerHome(props) {
                   }
                 </div>
               </div>
+              <div class="login-account"><ul><li><a href="#" data-toggle="modal" data-target="#myModallogin" onClick={handleLogout}>Logout</a></li></ul></div>
 
             </div>
             <div class="dashboard-top-content">

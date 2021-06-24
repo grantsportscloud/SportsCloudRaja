@@ -63,6 +63,7 @@ function SignUpComponents(props) {
         "Parent_name": input['parentName'],
         "user_type": userType,
         "team_name": input['teamName'],
+        "gender":"MALE"
         // "isAgreed":true
       }
       console.log("res success register--->", obj);

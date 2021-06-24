@@ -11,7 +11,7 @@ export const Network = (endpoint, method, body) => {
         url: `${base_url}${endpoint}`,
         headers: {
           'Content-Type': 'application/json',
-          Authorization: body ? `Bearer ${body.authToken}` : ""
+          "x-access-token": body ? body.authToken : ""
         },
         data: body
       })
