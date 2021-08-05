@@ -18,13 +18,19 @@ import Delect from "../../../images/delect.png"
 import pencil from "../../../images/pencil.png"
 import SideMenuComponents from "../../../Components/SideMenu"
 import Footer from "../../../Components/Footer"
+import { Network } from '../../../Services/Api';
+import { useDispatch } from 'react-redux';
+import { ToastContainer, toast } from 'react-toastify';
+import { logoutUser } from "../../../Redux/Actions/auth";
 
 
 function TeamSchedule(props) {
     const history = useHistory();
+    const dispatch = useDispatch()
 
     const [userMe, setUser] = useState(null);
     const [user, setUserData] = useState({});
+    const [schedule,setSchedule] =useState([])
 
     useEffect(() => {
         // let user = userdata && userdata._id ? true : false;
@@ -36,6 +42,7 @@ function TeamSchedule(props) {
         let userD = userLocal && userLocal._id ? true : false;
         setUser(userD);
         setUserData(userLocal);
+        teamSchedule()
     }, []);
 
     const handleLogout = () => {
@@ -45,6 +52,33 @@ function TeamSchedule(props) {
         setUserData(null);
         props.history.push("/")
     };
+
+
+
+    const teamSchedule=()=>{
+        const user = JSON.parse(localStorage.getItem('user'));
+        if (user) {
+          let header = {
+            'authToken': user.authtoken
+           
+          }
+          console.log('user',user)
+        
+        Network('api/get-game-event-list-for-player?user_id=60b639e96587cf14ebce5af6&page=1&limit=10', 'GET',header)
+          .then(async (res) => {
+            console.log("schedule----", res)
+
+            if (res.response_code == 4000) {
+                dispatch(logoutUser(null))
+                localStorage.removeItem("user");
+                history.push("/")
+                toast.error(res.response_message)
+            }
+           
+            
+        })
+      }
+    }
 
 
     return (
@@ -101,7 +135,9 @@ function TeamSchedule(props) {
                             <div class="manager-player-section">
                                 <h3>Manager:</h3>
                                 <ul>
-                                    <li><a href="#">New</a></li>
+                                <Link to="/NewEvent">
+            <li><a href="#" >New</a></li>
+          </Link>
                                     <li><a href="#">Edit</a></li>
                                     <li><a href="#">Import</a></li>
                                 </ul>

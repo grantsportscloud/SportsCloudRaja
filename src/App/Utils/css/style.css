@@ -269,11 +269,54 @@ p, ul, ol {
     color: #fff;
     padding: 0 25px;
 }
+.teams-select1{
+    width: 260px;
+}
+.teams-select1 select{
+    width: 100%;
+    margin-left: 342%;
+    background: #484848;
+    box-shadow: 0px 4px 3px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    height: 60px;
+    border: none;
+    -moz-appearance:none; /* Firefox */
+    -webkit-appearance:none; /* Safari and Chrome */
+    appearance:none;
+    outline: 0;
+    background: #484848 url(../../images/select-dropdown.png) no-repeat 93% center;
+    font-weight: 500;
+    font-size: 16px;
+    color: #fff;
+    padding: 0 25px;
+}
+.teams-select3{
+    width: 300px;
+}
+.teams-select3 select{
+    width: 100%;
+    background: #484848;
+    box-shadow: 0px 4px 3px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    height: 60px;
+    border: none;
+    -moz-appearance:none; /* Firefox */
+    -webkit-appearance:none; /* Safari and Chrome */
+    appearance:none;
+    outline: 0;
+    background: #484848 url(../../images/select-dropdown.png) no-repeat 93% center;
+    font-weight: 500;
+    font-size: 16px;
+    color: #fff;
+    padding: 0 25px;
+    margin-left: 34px;
+}
 .create-teams{
     margin: 0;
     padding: 0;
     margin-left: 20px;
 }
+
 .create-teams button{
     width: 215px;
     height: 50px;
@@ -1301,12 +1344,14 @@ p, ul, ol {
 
 }
 .prefarance-box{
-    margin-top: 60px;
+    overflow-y: auto;
+    margin-top: 0;
     background: #484848;
-    box-shadow: 0px 4px 7px 3px rgba(0, 0, 0, 0.05);
-    border-radius: 20px;
+    box-shadow: 0px 4px 7px 3px rgb(0 0 0 / 5%);
+    border-radius: 0;
     display: flex;
     min-height: 550px;
+    height: 100vh;
 }
 .prefarance-box ul.nav-tabs{
     width: 28%;
@@ -1942,7 +1987,7 @@ p, ul, ol {
 }
 .playerinfo-form .input-select{
     width: 100%;
-    background: ;
+   
     border: 1px solid #2C2C2C;
     border-radius: 10px;
     height: 60px;
@@ -1971,6 +2016,63 @@ button.add-links{
     color: #fff;
     border: none;
     outline: 0;
+}
+.react-datepicker__input-container {
+    position: relative !important;
+    display: grid !important;
+    width: 132% ;
+    margin-left: 33% !important;
+    height: 50px !important;
+    border-radius: 10px !important;
+    
+}
+.react-datepicker__input-container input{
+    background-color: #484848;
+    border:aliceblue;
+}
+.react-datepicker__input-container input.abc{
+    margin-left: 35% !important;
+    border-radius: 10px;
+    width: 164% !important;
+    background-color: white;
+    border: 0.5px solid rgb(12, 11, 11);
+}
+.react-date-picker{
+    margin-left: -37% !important;
+    
+}
+.react-datepicker-wrapper {
+    display: inline-block;
+    padding: 0;
+    border: 0;
+    margin-left: -99px !important;
+}
+.react-time-picker__wrapper {
+    display: flex !important;
+    /* flex-grow: 1; */
+    flex-shrink: 0 !important;
+    border: thin solid gray;
+    width: 220% !important;
+    height: 57px !important;
+    margin-left: 6px !important;
+    border-radius: 10px !important;
+    border: aliceblue !important;
+    
+}
+.react-time-picker__wrapper.bcd{
+    margin-left: -66% !important;
+}
+.modal-content{
+    position: absolute !important;
+    top:80px !important;
+    width: 120% ;
+    text-align: center ;
+    border-radius: 3.3rem !important;
+    /* background-color: #2C2C2C !important; */
+}
+.modal-open .modal {
+    overflow-x: auto;
+    overflow-y: auto;
 }
 
 /*player info*/

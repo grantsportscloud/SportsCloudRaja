@@ -24,6 +24,7 @@ import bullk from "../../../images/bullk.png"
 import SideMenuComponents from "../../../Components/SideMenu"
 import Footer from "../../../Components/Footer"
 import { useDispatch } from 'react-redux';
+import { Network } from '../../../Services/Api';
 
 
 function HomeComponents(props) {
@@ -32,6 +33,14 @@ function HomeComponents(props) {
 
   const [userMe, setUser] = useState(null);
   const [user, setUserData] = useState({});
+  const [player,setPlayer]= useState([]);
+  const [team,setTeam]=useState([]);
+
+  // const [loading,setLoading]= useState(false)
+  const [ profilePic,setProfilePic] = useState([])
+  console.log("team ka value====>",team);
+  console.log(" typeof team====>",typeof(team));
+
 
   useEffect(() => {
     // let user = userdata && userdata._id ? true : false;
@@ -43,7 +52,11 @@ function HomeComponents(props) {
     let userD = userLocal && userLocal._id ? true : false;
     setUser(userD);
     setUserData(userLocal);
+    teamSelect()
+    teamRoster()
+    updateProfile()
   }, []);
+  const pic='https://nodeserver.mydevfactory.com:1447/'
 
   const handleLogout = () => {
     console.log("pruyuuuuuu", props);
@@ -52,6 +65,68 @@ function HomeComponents(props) {
     setUserData(null);
     props.history.push("/")
   };
+  const teamSelect=()=>{
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (user) {
+      let header = {
+        'authToken': user.authtoken
+       
+      }
+      console.log('user',user)
+    
+    Network('api/player-joined-team-list?player_id='+user._id, 'GET',header)
+      .then(async (res) => {
+        console.log("res----", res)
+        let tempArray = [];
+        tempArray = res.response_data ;
+        console.log("res data",res.response_data)
+        setTeam(tempArray);
+        
+    })
+  }
+}
+
+
+const teamRoster=()=>{
+  const user = JSON.parse(localStorage.getItem('user'));
+  if (user) {
+    let header = {
+      'authToken': user.authtoken
+     
+    }
+    console.log('user',user)
+  
+  Network('api/player-list-by-team-id?team_id='+ '60a51abfae9b3244cc9d1eae', 'GET',header)
+    .then(async (res) => {
+      console.log("teamRoster----", res)
+      console.log("team player",res.response_data.PLAYER)
+      setPlayer(res.response_data.PLAYER)
+    
+      
+     
+  })
+}
+}
+  const updateProfile=()=>{
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (user) {
+      let header = {
+        'authToken': user.authtoken
+       
+      }
+      console.log('user',user)
+    
+    Network('api/get-user-details?user_id='+user._id, 'GET',header)
+      .then(async (res) => {
+        console.log("new Profile Pic----", res)
+       setProfilePic(res.response_data)
+        
+    })
+  }
+
+  }
+
+
 
 
   return (
@@ -64,9 +139,15 @@ function HomeComponents(props) {
             <div class="dashboard-head">
               <div class="teams-select">
                 <select>
-                  <option>My Teams</option>
+                  { team.map((team)=>{
+                    return(
+                      <option>{team.team_id.team_name}</option>
+                    )
+                  })}
+                 
+                  {/* <option>My Teams</option>
                   <option>My Teams 2</option>
-                  <option>My Teams 3</option>
+                  <option>My Teams 3</option> */}
                 </select>
               </div>
               {/* <!--
@@ -75,13 +156,12 @@ function HomeComponents(props) {
               </div>
               --> */}
               <div class="profile-head">
-                <div class="profile-head-name">{user ? user.fname : null}</div>
+                <div class="profile-head-name">{ profilePic.fname + " " +profilePic.lname}</div>
                 <div class="profile-head-img">
-                  {
-                    user ?
-                      <img src={user.profile_image} alt="" /> :
-                      <img src={UserProfile} alt="" />
-                  }
+                {profilePic.profile_image==null?
+                      <img src={BigUserProfile} alt="" />:
+                      <img src={`${pic}${profilePic.profile_image}`} alt="" />
+                      }
 
                 </div>
               </div>
@@ -97,10 +177,13 @@ function HomeComponents(props) {
                 <div class="dashboard-top-content-left-top">
                   <div class="team-profile">
                     <div class="team-profile-img">
-                      <img src={BigUserProfile} alt="" />
+                      {profilePic.profile_image==null?
+                      <img src={BigUserProfile} alt="" />:
+                      <img src={`${pic}${profilePic.profile_image}`} alt="" />
+                      }
                     </div>
                     <div class="team-profile-name">
-                      John Doe
+                      {profilePic.fname + " " +profilePic.lname}
                                 </div>
                     <div class="update-team-photo">
                       Update Player Photo
@@ -160,17 +243,29 @@ function HomeComponents(props) {
                   <a href="#">View All</a>
                 </div>
                 <div class="team-list-section">
-                  <div class="team-list-box">
-                    <div class="team-list-box-img">
-                      <img src={teamList} alt="" />
-                    </div>
-                    <div class="team-list-box-text">
-                      <h4>Chicago Bulls</h4>
-                      <h5>Tab D’souza  <span>Administrative</span></h5>
-                      <a href="#">Go to Users Details</a>
-                    </div>
-                  </div>
-                  <div class="team-list-box">
+                  {
+                    player.map((player)=>{
+                      
+                      return(
+                        <div class="team-list-box">
+                        <div class="team-list-box-img">
+                          {
+                            player.member_id.profile_image==null?
+                          <img src={teamList} alt="" />:
+                          <img src={`${pic}${player.member_id.profile_image}`} alt="" />
+                          }
+                        </div>
+                        <div class="team-list-box-text">
+                          <h4>{player.member_id.fname} {player.member_id.lname}</h4>
+                          <h5>{ player.member_type}</h5>
+                          <a href="#">{player.position}</a>
+                        </div>
+                      </div>
+                      )
+                    })
+                 
+                  }
+                  {/* <div class="team-list-box">
                     <div class="team-list-box-img">
                       <img src={teamList} alt="" />
                     </div>
@@ -199,7 +294,12 @@ function HomeComponents(props) {
                       <h5>Tab D’souza  <span>Administrative</span></h5>
                       <a href="#">Go to Users Details</a>
                     </div>
-                  </div>
+                  </div> */}
+
+
+
+
+                 
 
 
 
@@ -335,35 +435,35 @@ function HomeComponents(props) {
                   My Teams
                         </div>
                 <div class="myteam-list-section">
-                  <div class="team-list-box">
-                    <div class="team-list-box-img">
-                      <img src={bullk} alt="" />
+                  {
+                    team.map((team)=>{
+                      console.log('team ----',team);
+                      return(
+                        <div class="team-list-box" key={team.id}>
+                    <div class="team-list-box-img" >
+                        {   team.team_id.image==null?
+                        <img src={UserProfile} alt="" />:
+                      <img src={`${pic}${team.team_id.image}` } alt="" />
+                      }
                     </div>
                     <div class="team-list-box-text">
-                      <h4>Chicago Bulls</h4>
-                      <div class="my-team-details">
+                      <h4>{team.team_id.team_name}</h4>
+                      {/* <div class="my-team-details">
                         <div class="name">John Doe</div>
                         <div class="category">Player</div>
                         <div class="season">Spring Season</div>
-                      </div>
+                      </div> */}
 
                     </div>
                   </div>
+                      )
+                    })
+                  
+                  }
 
-                  <div class="team-list-box">
-                    <div class="team-list-box-img">
-                      <img src={bullk} alt="" />
-                    </div>
-                    <div class="team-list-box-text">
-                      <h4>8U Team-Red</h4>
-                      <div class="my-team-details">
-                        <div class="name">Daniel Carison</div>
-                        <div class="category">Player</div>
-                        <div class="season">New Season</div>
-                      </div>
+                 
 
-                    </div>
-                  </div>
+                  
 
 
 

@@ -4,6 +4,7 @@ var base_url = 'https://nodeserver.mydevfactory.com:1447/';
 var condition = navigator.onLine ? 'online' : 'offline';
 
 export const Network = (endpoint, method, body) => {
+  console.log("network",endpoint,body.authToken,method)
   return new Promise((resolve, reject) => {
     if (condition === 'online') {
       axios({

@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.css": "https://nodeserver.mydevfactory.com/projects/suvendu/robins/sportscloud/static/css/main.dae58b8c.chunk.css",
-    "main.js": "https://nodeserver.mydevfactory.com/projects/suvendu/robins/sportscloud/static/js/main.a765e458.chunk.js",
-    "main.js.map": "https://nodeserver.mydevfactory.com/projects/suvendu/robins/sportscloud/static/js/main.a765e458.chunk.js.map",
-    "runtime-main.js": "https://nodeserver.mydevfactory.com/projects/suvendu/robins/sportscloud/static/js/runtime-main.11075bc4.js",
-    "runtime-main.js.map": "https://nodeserver.mydevfactory.com/projects/suvendu/robins/sportscloud/static/js/runtime-main.11075bc4.js.map",
-    "static/css/2.83342f34.chunk.css": "https://nodeserver.mydevfactory.com/projects/suvendu/robins/sportscloud/static/css/2.83342f34.chunk.css",
-    "static/js/2.c316c97d.chunk.js": "https://nodeserver.mydevfactory.com/projects/suvendu/robins/sportscloud/static/js/2.c316c97d.chunk.js",
-    "static/js/2.c316c97d.chunk.js.map": "https://nodeserver.mydevfactory.com/projects/suvendu/robins/sportscloud/static/js/2.c316c97d.chunk.js.map",
-    "static/js/3.3b17ae2a.chunk.js": "https://nodeserver.mydevfactory.com/projects/suvendu/robins/sportscloud/static/js/3.3b17ae2a.chunk.js",
-    "static/js/3.3b17ae2a.chunk.js.map": "https://nodeserver.mydevfactory.com/projects/suvendu/robins/sportscloud/static/js/3.3b17ae2a.chunk.js.map",
+    "main.css": "https://nodeserver.mydevfactory.com/projects/suvendu/robins/sportscloud/static/css/main.56733939.chunk.css",
+    "main.js": "https://nodeserver.mydevfactory.com/projects/suvendu/robins/sportscloud/static/js/main.8d5674d8.chunk.js",
+    "main.js.map": "https://nodeserver.mydevfactory.com/projects/suvendu/robins/sportscloud/static/js/main.8d5674d8.chunk.js.map",
+    "runtime-main.js": "https://nodeserver.mydevfactory.com/projects/suvendu/robins/sportscloud/static/js/runtime-main.821702d1.js",
+    "runtime-main.js.map": "https://nodeserver.mydevfactory.com/projects/suvendu/robins/sportscloud/static/js/runtime-main.821702d1.js.map",
+    "static/css/2.e95d840c.chunk.css": "https://nodeserver.mydevfactory.com/projects/suvendu/robins/sportscloud/static/css/2.e95d840c.chunk.css",
+    "static/js/2.8d9e5f73.chunk.js": "https://nodeserver.mydevfactory.com/projects/suvendu/robins/sportscloud/static/js/2.8d9e5f73.chunk.js",
+    "static/js/2.8d9e5f73.chunk.js.map": "https://nodeserver.mydevfactory.com/projects/suvendu/robins/sportscloud/static/js/2.8d9e5f73.chunk.js.map",
+    "static/js/3.75bd7b1d.chunk.js": "https://nodeserver.mydevfactory.com/projects/suvendu/robins/sportscloud/static/js/3.75bd7b1d.chunk.js",
+    "static/js/3.75bd7b1d.chunk.js.map": "https://nodeserver.mydevfactory.com/projects/suvendu/robins/sportscloud/static/js/3.75bd7b1d.chunk.js.map",
     "index.html": "https://nodeserver.mydevfactory.com/projects/suvendu/robins/sportscloud/index.html",
-    "static/css/2.83342f34.chunk.css.map": "https://nodeserver.mydevfactory.com/projects/suvendu/robins/sportscloud/static/css/2.83342f34.chunk.css.map",
-    "static/css/main.dae58b8c.chunk.css.map": "https://nodeserver.mydevfactory.com/projects/suvendu/robins/sportscloud/static/css/main.dae58b8c.chunk.css.map",
-    "static/js/2.c316c97d.chunk.js.LICENSE.txt": "https://nodeserver.mydevfactory.com/projects/suvendu/robins/sportscloud/static/js/2.c316c97d.chunk.js.LICENSE.txt",
+    "static/css/2.e95d840c.chunk.css.map": "https://nodeserver.mydevfactory.com/projects/suvendu/robins/sportscloud/static/css/2.e95d840c.chunk.css.map",
+    "static/css/main.56733939.chunk.css.map": "https://nodeserver.mydevfactory.com/projects/suvendu/robins/sportscloud/static/css/main.56733939.chunk.css.map",
+    "static/js/2.8d9e5f73.chunk.js.LICENSE.txt": "https://nodeserver.mydevfactory.com/projects/suvendu/robins/sportscloud/static/js/2.8d9e5f73.chunk.js.LICENSE.txt",
     "static/media/bullk.35b6886e.png": "https://nodeserver.mydevfactory.com/projects/suvendu/robins/sportscloud/static/media/bullk.35b6886e.png",
     "static/media/calender.862c5651.png": "https://nodeserver.mydevfactory.com/projects/suvendu/robins/sportscloud/static/media/calender.862c5651.png",
     "static/media/list-pro1.e5ab083f.png": "https://nodeserver.mydevfactory.com/projects/suvendu/robins/sportscloud/static/media/list-pro1.e5ab083f.png",
@@ -23,10 +23,10 @@
     "static/media/team-list.117b9390.png": "https://nodeserver.mydevfactory.com/projects/suvendu/robins/sportscloud/static/media/team-list.117b9390.png"
   },
   "entrypoints": [
-    "static/js/runtime-main.11075bc4.js",
-    "static/css/2.83342f34.chunk.css",
-    "static/js/2.c316c97d.chunk.js",
-    "static/css/main.dae58b8c.chunk.css",
-    "static/js/main.a765e458.chunk.js"
+    "static/js/runtime-main.821702d1.js",
+    "static/css/2.e95d840c.chunk.css",
+    "static/js/2.8d9e5f73.chunk.js",
+    "static/css/main.56733939.chunk.css",
+    "static/js/main.8d5674d8.chunk.js"
   ]
 }

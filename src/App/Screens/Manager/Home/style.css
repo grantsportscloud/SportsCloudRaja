@@ -94,6 +94,7 @@ p, ul, ol {
     display: flex;
     align-items: center;
     padding-bottom: 30px;
+    
    
 }
 .teams-select{
@@ -565,7 +566,7 @@ p, ul, ol {
     padding: 0 25px;
     height: 45px;
     font-weight: 400;
-    font-size: 16px;
+    font-size: 15px;
     color: #fff;
     text-align: center;
     line-height: 45px;
@@ -1229,7 +1230,7 @@ p, ul, ol {
 }
 .prefarance-form-list-box .input-select{
     width: 55%;
-    background: ;
+    
     border: 1px solid #2C2C2C;
     border-radius: 10px;
     height: 60px;
@@ -1805,7 +1806,7 @@ p, ul, ol {
 }
 .playerinfo-form .input-select{
     width: 100%;
-    background: ;
+   
     border: 1px solid #2C2C2C;
     border-radius: 10px;
     height: 60px;
@@ -2170,7 +2171,7 @@ button.add-links{
 
 .playerinfo-form .input-textarea{
     width: 100%;
-    background: ;
+    
     border: 1px solid #2C2C2C;
     border-radius: 10px;
     height: 184px;
@@ -2285,3 +2286,4 @@ background: #EC3525;
     padding-left: 0;
     padding-right: 0;
 }
+

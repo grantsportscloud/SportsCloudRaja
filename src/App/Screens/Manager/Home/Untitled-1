@@ -1,0 +1,21 @@
+
+
+api/player-list-by-team-id?team_id=60aca35ff6cd6923adf9634a  => team roster 
+
+
+
+GETapi/get-user-details  => display user image and name on top 
+
+
+
+
+
+api/player-joined-team-list?player_id=60942bdffd131f3cd452c3be  => dropdown data on the top
+
+
+api/player-joined-team-list?player_id=60942bdffd131f3cd452c3be  => bottom  my teams list
+
+
+
+
+

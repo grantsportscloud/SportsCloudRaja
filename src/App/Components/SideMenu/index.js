@@ -79,12 +79,15 @@ function SideMenuComponents(props) {
             <Link to="/playerschdule">
             <li><a href="#" class="menu3">Team Schedule</a></li>
             </Link>
-           
+            <Link to="/ManagerTeamAvailability">
             <li><a href="#" class="menu4">Team Availability</a></li>
+            </Link>
             <Link to="/teamshop">
               <li><a href="#" class="menu5">Team Store</a></li>
             </Link>
+            <Link to="/ScoreKeeper">
             <li><a href="#" class="menu6">Score Keeper</a></li>
+            </Link>
             <Link to="/playerassignments">
               <li><a href="#" class="menu7">Team Assignment</a></li>
             </Link>
@@ -96,7 +99,7 @@ function SideMenuComponents(props) {
             <li><a href="#" class="menu11">Team Settings</a></li>
             <li><a href="#" class="menu12">Tournament Organizer</a></li>
             <li><a href="#" class="menu13">Team Store</a></li>
-            <li><a href="#" class="menu14">Website Administration</a></li>
+            <li><a href="#" class="menu14">Website Adminis tration</a></li>
             <li><a href="#" class="menu15">player Liability Waiver</a></li>
             <li><a href="#" class="menu16" >Invoicing</a></li>
           </ul>
@@ -112,11 +115,15 @@ function SideMenuComponents(props) {
           <Link to="/playerschdule">
           <li><a href="#" class="menu3">Team Schedule</a></li>
           </Link>
+          <Link to="/TeamAvailability">
           <li><a href="#" class="menu4">Player Availability</a></li>
+          </Link>
           <Link to="/teamshop">
             <li><a href="#" class="menu5">Team Shop</a></li>
           </Link>
-          <li><a href="#" class="menu6">Score Keeper</a></li>
+          <Link to="/ScoreKeeper">
+            <li><a href="#" class="menu6">Score Keeper</a></li>
+            </Link>
           <Link to="/playerassignments">
             <li><a href="#" class="menu7">Player Assignment</a></li>
           </Link>
@@ -133,6 +140,7 @@ function SideMenuComponents(props) {
           <Link to="/payment">
           <li><a href="#" class="menu12" >Team Payments</a></li>
           </Link>
+          
         </ul>
           }
           

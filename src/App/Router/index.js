@@ -16,10 +16,18 @@ import PlayerAssignments from "../Screens/Players/PlayerAssignments"
 import PlayerPayment from "../Screens/Players/Payment"
 import PlayerMedia from "../Screens/Players/PlayerMedia"
 import LiabilityWaiver from "../Screens/Players/liabilityWaiver"
+import TeamAvailability from '../Screens/Players/TeamAvailability/TeamAvailability';
+import Scorekeeper from '../Screens/Players/ScoreKeeper/ScoreKeeper';
+
 // Team manger
 import ManagerHome from './../Screens/Manager/Home';
 import TeamSchdule from "./../Screens/Manager/TeamSchedule"
 import MangerRoster from "../Screens/Players/TeamRoster"
+import NewEvent from '../Screens/Manager/TeamSchedule/newEvent'
+import AddPlayer from '../Screens/Manager/Roster/AddPlayer'
+import CreateTeam from '../Screens/Manager/Roster/CreateTeam'
+import ManagerTeamAvailability from '../Screens/Manager/ManagerTeamAvailability/ManagerTeamAvailability'
+
 import NotFound from "./../../Error"
 
 export const currentURL = '/projects/suvendu/robins/sportscloud';
@@ -69,6 +77,10 @@ function RouterScreen() {
                                         <Route path='/payment' component={PlayerPayment} />
                                         <Route path='/playermedia' component={PlayerMedia} />
                                         <Route path='/liabilitywaiver' component={LiabilityWaiver} />
+                                        <Route path='/TeamAvailability' component={TeamAvailability} />
+                                        <Route path='/Scorekeeper' component={Scorekeeper} />
+                                       
+                                        
                                     </>
                                     :
                                     <>
@@ -78,6 +90,11 @@ function RouterScreen() {
                                         <Route path='/teamshop' component={PlayerTeamShop} />
                                         <Route path='/preferance' component={Preferance} />
                                         <Route path='/playerassignments' component={PlayerAssignments} />
+                                        <Route path='/NewEvent' component={NewEvent} />
+                                        <Route path='/AddPlayer' component={AddPlayer} />
+                                        <Route path='/CreateTeam' component={CreateTeam} />
+                                        <Route path='/ManagerTeamAvailability' component={ManagerTeamAvailability} />
+                                        <Route path='/Scorekeeper' component={Scorekeeper} />
                                     </>
 
                             }
