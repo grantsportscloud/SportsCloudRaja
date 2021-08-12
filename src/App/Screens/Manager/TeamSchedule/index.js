@@ -335,7 +335,8 @@ function TeamSchdule(props) {
                                             </td>
                                             <td>
                                                 <div class="last-row">
-                                                    <p>Avaneesh Shett</p> <button data-toggle="modal" data-target="#assignmentdelect" onClick={()=>deleteScheduleData(schedule._id)}><img src={Delect} /></button> <button><img src={pencil} /></button>
+                                                    <p>Avaneesh Shett</p> <button data-toggle="modal" data-target="#assignmentdelect" onClick={()=>deleteScheduleData(schedule._id)}><img src={Delect} />
+                                                    </button> <button><img src={pencil} /></button>
                                                 </div>
                                             </td>
                                         </tr>

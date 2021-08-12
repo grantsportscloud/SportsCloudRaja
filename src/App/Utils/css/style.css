@@ -2076,3 +2076,51 @@ button.add-links{
 }
 
 /*player info*/
+
+span {
+    color: white;
+    padding: 5px;
+}
+.fileStyle{
+    color: white;
+    border: 1px solid black;
+    width: 150px;
+    text-align: center;
+    padding: 10px;
+    border-radius: 24px;
+    margin-bottom: 10px;
+}
+.team-assesment table tr td:first-child, .team-assesment table tr th:first-child{
+    width: 7% !important;
+}
+.sizebox{
+    margin: 10px;
+    background-color: white;
+    height: 37px;
+    width: 49px;
+    text-align: center;
+    padding-top: 7px;
+    border-radius: 5px;
+  
+ 
+}
+.Addcart{
+    width: 158px;
+    height: 50px;
+    background: #EC3525;
+    font-size: 16px;
+    border-radius: 25px;
+    color: #fff;
+    border: none;
+    outline: 0;
+    margin-top: 29%;
+}
+.imgSize{
+    height: 76px;
+    width: 85px;
+    border: 1px solid gray;
+    border-radius: 5px;
+    padding: 7px;
+    margin: 5px;
+}
+

@@ -29,7 +29,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import { logoutUser } from "../../../Redux/Actions/auth";
 
 
-function PlayerAssignments(props) {
+function TeamAssignments(props) {
     const history = useHistory();
     const dispatch = useDispatch()
 
@@ -52,7 +52,6 @@ function PlayerAssignments(props) {
     const [uid, setUId] = useState("")
     const [modeValue, setModeValue] = useState(false)
     const [id, setId] = useState("")
-    const [team, setTeam] = useState([]);
 
   
 
@@ -66,9 +65,10 @@ function PlayerAssignments(props) {
         let userD = userLocal && userLocal._id ? true : false;
         setUser(userD);
         setUserData(userLocal);
-        teamSelect()
+
         AssignmentData()
         addAssignmentData()
+        dropdownMenu()
         deleteAssignmentData()
         LocationData()
         VolenteerData()
@@ -139,40 +139,35 @@ function PlayerAssignments(props) {
     }
 
 
-    const teamSelect = () => {
+    const dropdownMenu = () => {
         const user = JSON.parse(localStorage.getItem('user'));
         if (user) {
             let header = {
                 'authToken': user.authtoken
 
             }
-            console.log('user', user)
+            //console.log('user',user)
 
-            Network('api/player-joined-team-list?player_id=' + user._id, 'GET', header)
+            Network('api/my-team-list?team_manager_id=' + user._id, 'GET', header)
                 .then(async (res) => {
-                    console.log("res----", res)
+                    console.log("dropdown----", res)
                     if (res.response_code == 4000) {
                         dispatch(logoutUser(null))
                         localStorage.removeItem("user");
                         history.push("/")
                         toast.error(res.response_message)
                     }
+                    setDropdown(res.response_data);
 
-                    setTeam(res.response_data);
-                    // if(res.response_data.length!=0){
-                        AssignmentData(res.response_data[0]._id);
-                    // }
-                   
+                    teamSchedule(res.response_data[0]._id);
+
+
+
+
 
                 })
         }
-    }
 
-    
-
-    const change1 = (event) => {
-        console.log("event", event.target.value)
-        AssignmentData(event.target.value);
     }
 
 
@@ -494,15 +489,13 @@ function PlayerAssignments(props) {
                     <div class="dashboard-main-content">
                         <div class="dashboard-head">
                             <div class="teams-select">
-                            <select onClick={change1}>
-                                    <option>Select Team</option>
-                                    {team.map((team) => {
+                                <select>
+                                    <option>Select A Team</option>
+                                    {dropdown.map((dropdown) => {
                                         return (
-                                            <option value={team.team_id._id}>{team.team_id.team_name}</option>
+                                            <option value={dropdown._id}>{dropdown.team_name}</option>
                                         )
                                     })}
-
-
                                 </select>
                             </div>
 
@@ -748,7 +741,7 @@ function PlayerAssignments(props) {
     );
 }
 
-export default PlayerAssignments;
+export default TeamAssignments;
 
 
 

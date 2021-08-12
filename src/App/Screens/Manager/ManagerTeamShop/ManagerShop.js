@@ -21,14 +21,14 @@ import { ToastContainer, toast } from 'react-toastify';
 import { logoutUser } from "../../../Redux/Actions/auth";
 
 
-function PlayerTeamShop(props) {
+function ManagerTeamShop(props) {
   const history = useHistory()
   const dispatch = useDispatch()
 
   const [userMe, setUser] = useState(null);
   const [user, setUserData] = useState({});
+  const [dropdown, setDropdown] = useState([])
   const [shopData, setShopData] = useState([])
-  const [team,setTeam]=useState([]);
 
   useEffect(() => {
     // let user = userdata && userdata._id ? true : false;
@@ -40,7 +40,7 @@ function PlayerTeamShop(props) {
     let userD = userLocal && userLocal._id ? true : false;
     setUser(userD);
     setUserData(userLocal);
-    teamSelect()
+    dropdownMenu()
     teamShopData()
   }, []);
 
@@ -53,35 +53,40 @@ function PlayerTeamShop(props) {
   };
   const pic = 'https://nodeserver.mydevfactory.com:1447/'
 
-  const teamSelect=()=>{
+  const dropdownMenu = () => {
     const user = JSON.parse(localStorage.getItem('user'));
     if (user) {
       let header = {
         'authToken': user.authtoken
-       
+
       }
-      console.log('user',user)
-    
-    Network('api/player-joined-team-list?player_id='+user._id, 'GET',header)
-      .then(async (res) => {
-        console.log("res----", res)
-        if (res.response_code == 4000) {
-          dispatch(logoutUser(null))
-          localStorage.removeItem("user");
-          history.push("/")
-          toast.error(res.response_message)
-      }
-      
-        setTeam(res.response_data);
-        
-    })
+      //console.log('user',user)
+
+      Network('api/my-team-list?team_manager_id=' + user._id, 'GET', header)
+        .then(async (res) => {
+          console.log("dropdown----", res)
+          if (res.response_code == 4000) {
+            dispatch(logoutUser(null))
+            localStorage.removeItem("user");
+            history.push("/")
+            toast.error(res.response_message)
+          }
+          setDropdown(res.response_data);
+
+          teamShopData(res.response_data[0]._id);
+
+
+
+
+
+        })
+    }
+
   }
-}
 
 
   const teamShopData = (id) => {
     const user = JSON.parse(localStorage.getItem('user'));
-    console.log("iddddd",id)
     if (user) {
       let header = {
         'authToken': user.authtoken
@@ -91,6 +96,8 @@ function PlayerTeamShop(props) {
 
 
       console.log("id----------->", id)
+
+
       Network('api/team-store-product-list?manager_id=' + user._id + '&team_id=' + id, 'GET', header)
         .then(async (res) => {
           console.log("teamShopData----", res)
@@ -102,10 +109,7 @@ function PlayerTeamShop(props) {
             toast.error(res.response_message)
           }
           setShopData(res.response_data.docs)
-          if(res.response_data.docs.length!=0){
-            teamShopData(res.response_data.docs[0]._id)
-          }
-         
+
 
 
         })
@@ -120,6 +124,7 @@ function PlayerTeamShop(props) {
   }
 
 
+console.log("dta--->",shopData)
   return (
     <div>
       <div class="dashboard-container">
@@ -128,10 +133,17 @@ function PlayerTeamShop(props) {
           <div class="dashboard-main-content">
             <div class="dashboard-head">
               <div class="teams-select">
-                <select onClick={change} >
-                  { team.map((team)=>{
-                    return(
-                      <option value={team.team_id._id}>{team.team_id.team_name}</option>
+                {/* <select>
+                  <option>My Teams</option>
+                  <option>My Teams 2</option>
+                  <option>My Teams 3</option>
+                </select> */}
+                <select onChange={change} >
+
+                  <option>Select A Team</option>
+                  {dropdown.map((dropdown) => {
+                    return (
+                      <option value={dropdown._id}>{dropdown.team_name}</option>
                     )
                   })}
                 </select>
@@ -176,9 +188,7 @@ function PlayerTeamShop(props) {
                   {shopData.length==0?
                   <div class="team-shop-list-main">
                    <div class="team-shop-product-box">
-                    <div class="team-shop-product-img" onClick={
-                      history.push("/AddShopData")
-                    }>
+                    <div class="team-shop-product-img">
                       <img src={listImage} alt="" />
                     </div>
                     <div class="team-shop-product-text">
@@ -420,4 +430,4 @@ function PlayerTeamShop(props) {
   );
 }
 
-export default PlayerTeamShop;
+export default ManagerTeamShop;

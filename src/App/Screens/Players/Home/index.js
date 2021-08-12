@@ -25,6 +25,7 @@ import SideMenuComponents from "../../../Components/SideMenu"
 import Footer from "../../../Components/Footer"
 import { useDispatch } from 'react-redux';
 import { Network } from '../../../Services/Api';
+import { ToastContainer, toast } from 'react-toastify';
 
 
 function HomeComponents(props) {
@@ -77,10 +78,14 @@ function HomeComponents(props) {
     Network('api/player-joined-team-list?player_id='+user._id, 'GET',header)
       .then(async (res) => {
         console.log("res----", res)
-        let tempArray = [];
-        tempArray = res.response_data ;
-        console.log("res data",res.response_data)
-        setTeam(tempArray);
+        if (res.response_code == 4000) {
+          dispatch(logoutUser(null))
+          localStorage.removeItem("user");
+          history.push("/")
+          toast.error(res.response_message)
+      }
+      
+        setTeam(res.response_data);
         
     })
   }
@@ -99,6 +104,12 @@ const teamRoster=()=>{
   Network('api/player-list-by-team-id?team_id='+ '60a51abfae9b3244cc9d1eae', 'GET',header)
     .then(async (res) => {
       console.log("teamRoster----", res)
+      if (res.response_code == 4000) {
+        dispatch(logoutUser(null))
+        localStorage.removeItem("user");
+        history.push("/")
+        toast.error(res.response_message)
+    }
       console.log("team player",res.response_data.PLAYER)
       setPlayer(res.response_data.PLAYER)
     
@@ -119,6 +130,12 @@ const teamRoster=()=>{
     Network('api/get-user-details?user_id='+user._id, 'GET',header)
       .then(async (res) => {
         console.log("new Profile Pic----", res)
+        if (res.response_code == 4000) {
+          dispatch(logoutUser(null))
+          localStorage.removeItem("user");
+          history.push("/")
+          toast.error(res.response_message)
+      }
        setProfilePic(res.response_data)
         
     })
@@ -144,10 +161,6 @@ const teamRoster=()=>{
                       <option>{team.team_id.team_name}</option>
                     )
                   })}
-                 
-                  {/* <option>My Teams</option>
-                  <option>My Teams 2</option>
-                  <option>My Teams 3</option> */}
                 </select>
               </div>
               {/* <!--
@@ -243,6 +256,7 @@ const teamRoster=()=>{
                   <a href="#">View All</a>
                 </div>
                 <div class="team-list-section">
+                 
                   {
                     player.map((player)=>{
                       
@@ -302,8 +316,8 @@ const teamRoster=()=>{
                  
 
 
-
-                </div>
+</div>
+               
               </div>
             </div>
             <div class="player-schedule-section">

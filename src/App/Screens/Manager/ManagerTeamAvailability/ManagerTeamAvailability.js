@@ -45,7 +45,7 @@ const ManagerTeamAvailability = () => {
     const [listValue,setListValue] =useState()
     const [listId,setListUserId] =useState()
     const [colorSelect,setColorSeleted]=useState(false)
-    const [selectedOption,setSelectedOption]=useState({})
+    const [selectedOption,setSelectedOption]=useState(false)
 
 
 
@@ -242,7 +242,7 @@ const ManagerTeamAvailability = () => {
         setListUserId(id)
         setColor(id,e.target.value)
 
-        
+        if(selectedOption){
 
         if (e.target.value === "GOING" ) {
             setDivColor("green")
@@ -256,6 +256,7 @@ const ManagerTeamAvailability = () => {
         else {
             setDivColor("green")
         }
+    }
 
 
 
@@ -350,7 +351,7 @@ const ManagerTeamAvailability = () => {
                                     </tr>
                                     {gameEventAllData.map((data,index) => {
                                         return (
-                                            <tr>
+                                            <tr >
                                                 <td style={{ paddingLeft: "10%" }}>
                                                     <div class="flag-prac">
                                                         {data.userDetails.image == null ? <img src={UserProfile} alt="" /> :
@@ -365,18 +366,18 @@ const ManagerTeamAvailability = () => {
                                                     <div style={{ height: "19px", width: "20px", marginLeft: "30px", marginTop: "16px", backgroundColor:divColor }} ></div>
                                                     <div>
                                                         <select style={{ width: "23px", height: "20px", marginTop: "15px" }} 
-                                                        selected={selectedOption}
+                                                        
                                                             onChange={(e)=>{
                                                                 colorChange(e,data._id,index)
                                                                 // setIndexValue({[index]})
                                                                 // console.log("abc   ",e.target.value)
-                                                                setSelectedOption(index+1)
+                                                               setSelectedOption(true)
                                                             }
                                                             }
                                                         >
                                                             {AvailabilityArray.map((data1) => {
                                                                 return (
-                                                                    <option value={data1.name} > {data1.name}</option>
+                                                                    <option value={data1.name}  > {data1.name}</option>
                                                                 )
                                                             })}
                                                            

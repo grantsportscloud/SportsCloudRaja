@@ -73,35 +73,45 @@ function SideMenuComponents(props) {
             <Link to="/">
               <li><a href="#" class="menu1 active">Team Home</a></li>
             </Link>
-            <Link to="/teamroster">
+            <Link to="/ManagerRoster">
               <li><a href="#" class="menu2">Team Roster</a></li>
             </Link >
-            <Link to="/playerschdule">
+            <Link to="/Teamschdule">
             <li><a href="#" class="menu3">Team Schedule</a></li>
             </Link>
             <Link to="/ManagerTeamAvailability">
             <li><a href="#" class="menu4">Team Availability</a></li>
             </Link>
-            <Link to="/teamshop">
+            <Link to="/ManagerTeamShop">
               <li><a href="#" class="menu5">Team Store</a></li>
             </Link>
             <Link to="/ScoreKeeper">
             <li><a href="#" class="menu6">Score Keeper</a></li>
             </Link>
-            <Link to="/playerassignments">
+            <Link to="/TeamAssignments">
               <li><a href="#" class="menu7">Team Assignment</a></li>
             </Link>
+            <Link to="/TeamMedia">
             <li><a href="#" class="menu8">Team Media</a></li>
+            </Link>
+            <Link to="/TeamMassage">
             <li><a href="#" class="menu9">Team Messages</a></li>
+            </Link>
             <Link to="/preferance">
               <li><a href="#" class="menu10">Team Preferences</a></li>
             </Link>
-            <li><a href="#" class="menu11">Team Settings</a></li>
+            <Link to = "/TeamLiabilityWaiver">
+          <li><a href="#" class="menu11">Liability Waiver</a></li>
+          </Link>
+            <Link to="/TeamPayment">
+              <li><a href="#" class="menu12">Team Payment</a></li>
+            </Link>
+            {/* <li><a href="#" class="menu11">Team Settings</a></li>
             <li><a href="#" class="menu12">Tournament Organizer</a></li>
             <li><a href="#" class="menu13">Team Store</a></li>
             <li><a href="#" class="menu14">Website Adminis tration</a></li>
             <li><a href="#" class="menu15">player Liability Waiver</a></li>
-            <li><a href="#" class="menu16" >Invoicing</a></li>
+            <li><a href="#" class="menu16" >Invoicing</a></li> */}
           </ul>
           :
           

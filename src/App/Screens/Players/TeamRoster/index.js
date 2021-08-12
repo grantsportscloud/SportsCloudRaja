@@ -37,14 +37,15 @@ function TeamRoster(props) {
     const dispatch = useDispatch()
     const [userMe, setUser] = useState(null);
     const [user, setUserData] = useState({});
-    const [player,setPlayer]= useState([]);
-    const [resData,setResData]=useState({})
-    const [nonPlayer,setNonPlayer]=useState([])
-    const [dropdown,setDropdown]=useState([])
-    const [teamDropdown,setTeamDropDown]= useState("")
-   
-    
-   
+    const [player, setPlayer] = useState([]);
+    const [resData, setResData] = useState({})
+    const [nonPlayer, setNonPlayer] = useState([])
+    const [dropdown, setDropdown] = useState([])
+    const [teamDropdown, setTeamDropDown] = useState("")
+    const [team, setTeam] = useState([]);
+
+
+
 
     // const [Nonplayer,setNonPlayer]= useState([]);
 
@@ -58,12 +59,14 @@ function TeamRoster(props) {
         let userD = userLocal && userLocal._id ? true : false;
         setUser(userD);
         setUserData(userLocal);
+        teamSelect()
         teamRoster();
-        dropdownMenu();
-        
+       
+       
+
     }, []);
 
-    const pic='https://nodeserver.mydevfactory.com:1447/'
+    const pic = 'https://nodeserver.mydevfactory.com:1447/'
 
     const handleLogout = () => {
         console.log("pruyuuuuuu", props);
@@ -72,73 +75,75 @@ function TeamRoster(props) {
         setUserData(null);
         props.history.push("/")
     };
-    const teamRoster=(id)=>{
+    const teamRoster = (id) => {
         const user = JSON.parse(localStorage.getItem('user'));
+        console.log("id---->",id)
         if (user) {
-          let header = {
-            'authToken': user.authtoken
-           
-          }
-          console.log('user',user)
-        
-        Network('api/player-list-by-team-id?team_id='+ id, 'GET',header)
-          .then(async (res) => {
-            console.log("teamRoster----", res)
+            let header = {
+                'authToken': user.authtoken
 
-            if (res.response_code == 4000) {
-                dispatch(logoutUser(null))
-                localStorage.removeItem("user");
-                history.push("/")
-                toast.error(res.response_message)
             }
-            setResData(res.response_data);
-            console.log("team player",res.response_data.PLAYER)
-            console.log("non player",res.response_data.NON_PLAYER)
-            setPlayer(res.response_data.PLAYER)
-            setNonPlayer(res.response_data.NON_PLAYER)
-            
-           
-        })
-      }
-      }
+            console.log('user', user)
+
+            Network('api/player-list-by-team-id?team_id=' + id, 'GET', header)
+                .then(async (res) => {
+                    console.log("teamRoster----", res)
+
+                    if (res.response_code == 4000) {
+                        dispatch(logoutUser(null))
+                        localStorage.removeItem("user");
+                        history.push("/")
+                        toast.error(res.response_message)
+                    }
+                    setResData(res.response_data);
+                    console.log("team player", res.response_data.PLAYER)
+                    console.log("non player", res.response_data.NON_PLAYER)
+                    setPlayer(res.response_data.PLAYER)
+                    setNonPlayer(res.response_data.NON_PLAYER)
 
 
-      const dropdownMenu = () => {
+                })
+        }
+    }
+
+
+
+    const teamSelect = () => {
         const user = JSON.parse(localStorage.getItem('user'));
         if (user) {
-          let header = {
-            'authToken': user.authtoken
-    
-          }
-          //console.log('user',user)
-    
-          Network('api/my-team-list?team_manager_id=' + user._id, 'GET', header)
-            .then(async (res) => {
-              console.log("dropdown----", res)
-              if (res.response_code == 4000) {
-                dispatch(logoutUser(null))
-                localStorage.removeItem("user");
-                history.push("/")
-                toast.error(res.response_message)
-              }
-              setDropdown(res.response_data);
-    
-              teamRoster(res.response_data[0]._id);
-    
-    
-    
-    
-    
-            })
+            let header = {
+                'authToken': user.authtoken
+
+            }
+            console.log('user', user)
+
+            Network('api/player-joined-team-list?player_id=' + user._id, 'GET', header)
+                .then(async (res) => {
+                    console.log("res----", res)
+                    if (res.response_code == 4000) {
+                        dispatch(logoutUser(null))
+                        localStorage.removeItem("user");
+                        history.push("/")
+                        toast.error(res.response_message)
+                    }
+
+                    setTeam(res.response_data);
+                    // if(res.response_data.length!=0){
+                        teamRoster(res.response_data[0]._id);
+                    // }
+                   
+
+                })
         }
+    }
+
     
-      }
 
     const change = (event) => {
-        console.log("event",event.target.value)
+        console.log("event", event.target.value)
         setTeamDropDown(event.target.value)
         teamRoster(event.target.value);
-     }
+    }
 
     return (
         <div>
@@ -147,62 +152,53 @@ function TeamRoster(props) {
                     <SideMenuComponents />
                     <div class="dashboard-main-content">
                         <div class="dashboard-head">
-                            
+
                             <div class="teams-select">
-                                {/* <select>
-                                    <option>My Teams</option>
-                                    <option>My Teams 2</option>
-                                    <option>My Teams 3</option>
-                                </select> */}
-                                {user.user_type=="manager"?
-                                <div>
-                                <button class="create-new-team" onClick={() => {
-                                    history.push("/CreateTeam")
-                                }}>Create New Teams</button>
-                                <select onChange={change}> 
-                                { dropdown.map((dropdown)=>{
-                                        return(
-                                            <option value={dropdown._id}>{dropdown.team_name}</option>
+
+
+                                <select onClick={change}>
+                                    <option>Select Team</option>
+                                    {team.map((team) => {
+                                        return (
+                                            <option value={team.team_id._id}>{team.team_id.team_name}</option>
                                         )
                                     })}
+
+
                                 </select>
-                                <select>
-                                    <option>Account</option>
-                                    <option>Account1</option>
-                                    <option>Account2</option>
-                                </select>
-                                </div>: ""}
-                           
+
                             </div>
 
-                            <div class="profile-head">
-                                <div class="profile-head-name">John Doe</div>
-                                <div class="profile-head-img">
-                                    <img src={UserProfile} alt="" />
-                                </div>
-                            </div>
+                        
 
+                        <div class="profile-head">
+                            <div class="profile-head-name">John Doe</div>
+                            <div class="profile-head-img">
+                                <img src={UserProfile} alt="" />
+                            </div>
                         </div>
+                        </div>
+
 
                         <div class="prefarance-page">
                             <div class="player-info-head">
                                 <h2 class="page-title">Roster</h2>
                                 <div class="player-info-head-right">
-                                    <button class="edit-btn" style={{width:"265px"}}>Manage My Player Info</button>
-                                    <button class="add-new-family" style={{width:"324px"}}>+ Add or Edit My Family Member</button>
-                                    <button class="edit-btn" style={{marginLeft:"5px"}}>Export</button>
+                                    <button class="edit-btn" style={{ width: "265px" }}>Manage My Player Info</button>
+                                    <button class="add-new-family" style={{ width: "324px" }}>+ Add or Edit My Family Member</button>
+                                    <button class="edit-btn" style={{ marginLeft: "5px" }}>Export</button>
                                 </div>
                             </div>
 
-                            {user.user_type=="manager"?  <div class="manager-player-section">
+                            {user.user_type == "manager" ? <div class="manager-player-section">
                                 <h3>Maneger</h3>
                                 <ul >
-                                    <li onClick={()=>history.push('./AddPlayer')}><a href="#" style={{color:"red"}}>+ Add Player</a></li>
-                                    <li><a href="#" style={{color:"red"}}>Import Players</a></li>
-                                    <li><a href="#" style={{color:"red"}}>Import From Another Teams</a></li>
+                                    <li onClick={() => history.push('./AddPlayer')}><a href="#" style={{ color: "red" }}>+ Add Player</a></li>
+                                    <li><a href="#" style={{ color: "red" }}>Import Players</a></li>
+                                    <li><a href="#" style={{ color: "red" }}>Import From Another Teams</a></li>
                                 </ul>
-                                
-                            </div>: ""}
+
+                            </div> : ""}
 
                             {/* <div class="prefarance-box player-info">
                                 <ul class="nav nav-tabs" role="tablist">
@@ -295,7 +291,7 @@ function TeamRoster(props) {
                                     <li><a href="#">Edit</a></li>
                                     <li><a href="#">Import</a></li>
                                 </ul> */}
-                                <span style={{color:"white",position:"absolute",right:"3%"}}>Total Player {resData.TOTAL_PLAYER}(Men:3,Women:2)</span>
+                                <span style={{ color: "white", position: "absolute", right: "3%" }}>Total Player {resData.TOTAL_PLAYER}(Men:3,Women:2)</span>
                             </div>
                             <div class="prefarance-box">
                                 <div class="team-payment team-assesment">
@@ -308,43 +304,43 @@ function TeamRoster(props) {
                                             <th>contact Info</th>
                                             <th>Position</th>
                                         </tr>
-                                        {player.map((player)=>{
-                                            return(
+                                        {player.map((player) => {
+                                            return (
                                                 <tr>
-                                            <td>
-                                            
-                                                <div class="game-name">
-                                            
-                                                    {player.member_id.gender}
-                                        </div>
-                                                    
-                                            </td>
-                                            <td> { player.member_id.profile_image==null?
-                                            <img src={UserProfile} alt="" />:
-                                                <img src={`${pic}${player.member_id.profile_image}`} alt="" style={{height:"50px",width:"50px",borderRadius:"50%"}} />
-                                            }
-                                                </td>
-                                            <td>
-                                                <span>{player.member_id.fname}{player.member_id.lname}</span>
-                                            </td>
-                                            <td>
-                                                <span>{player.jersey_number}</span>
-                                            </td>
-                                            <td>{player.member_id.fname}<br></br>
-                                            {player.member_id.email}
-                                   
-                                            </td>
-                                            <td>
-                                                <div class="last-row">
-                                                    <p>{player.position}</p> <button data-toggle="modal" data-target="#assignmentdelect"><img src={Delect} /></button> <button><img src={pencil} /></button>
-                                                </div>
-                                            </td>
-                                        </tr>
+                                                    <td>
+
+                                                        <div class="game-name">
+
+                                                            {player.member_id.gender}
+                                                        </div>
+
+                                                    </td>
+                                                    <td> {player.member_id.profile_image == null ?
+                                                        <img src={UserProfile} alt="" /> :
+                                                        <img src={`${pic}${player.member_id.profile_image}`} alt="" style={{ height: "50px", width: "50px", borderRadius: "50%" }} />
+                                                    }
+                                                    </td>
+                                                    <td>
+                                                        <span>{player.member_id.fname}{player.member_id.lname}</span>
+                                                    </td>
+                                                    <td>
+                                                        <span>{player.jersey_number}</span>
+                                                    </td>
+                                                    <td>{player.member_id.fname}<br></br>
+                                                        {player.member_id.email}
+
+                                                    </td>
+                                                    <td>
+                                                        <div class="last-row">
+                                                            <p>{player.position}</p> <button data-toggle="modal" data-target="#assignmentdelect"><img src={Delect} /></button> <button><img src={pencil} /></button>
+                                                        </div>
+                                                    </td>
+                                                </tr>
 
                                             )
                                         })}
-                                        
-                                        
+
+
 
 
                                     </table>
@@ -358,7 +354,7 @@ function TeamRoster(props) {
                                     <li><a href="#">Edit</a></li>
                                     <li><a href="#">Import</a></li>
                                 </ul> */}
-                                <span style={{color:"white",position:"absolute",right:"3%"}}>Total Player 5(Men:3,Women:2)</span>
+                                <span style={{ color: "white", position: "absolute", right: "3%" }}>Total Player 5(Men:3,Women:2)</span>
                             </div>
                             <div class="prefarance-box">
                                 <div class="team-payment team-assesment">
@@ -371,41 +367,41 @@ function TeamRoster(props) {
                                             <th>contact Info</th>
                                             <th>Position</th>
                                         </tr>
-                                        
-                                        {nonPlayer.map((Nonplayer)=>{
-                                            return(
+
+                                        {nonPlayer.map((Nonplayer) => {
+                                            return (
                                                 <tr>
-                                            <td>
-                                            
-                                                <div class="game-name">
-                                                    {Nonplayer.member_id.gender}</div>
-                                            </td>
-                                            <td> { Nonplayer.member_id.profile_image==null?
-                                            <img src={UserProfile} alt="" />:
-                                                <img src={`${pic}${Nonplayer.member_id.profile_image}`} alt="" style={{height:"50px",width:"50px",borderRadius:"50%"}} />
-                                            }
-                                                </td>
-                                            <td>
-                                                <span>{Nonplayer.member_id.fname}{Nonplayer.member_id.lname}</span>
-                                            </td>
-                                            <td>
-                                                <span>{Nonplayer.jersey_number}</span>
-                                            </td>
-                                            <td>{Nonplayer.member_id.fname}<br></br>
-                                            {Nonplayer.member_id.email}
-                                   
-                                            </td>
-                                            <td>
-                                                <div class="last-row">
-                                                    <p>{Nonplayer.position}</p> <button data-toggle="modal" data-target="#assignmentdelect"><img src={Delect} /></button> <button><img src={pencil} /></button>
-                                                </div>
-                                            </td>
-                                        </tr>
+                                                    <td>
+
+                                                        <div class="game-name">
+                                                            {Nonplayer.member_id.gender}</div>
+                                                    </td>
+                                                    <td> {Nonplayer.member_id.profile_image == null ?
+                                                        <img src={UserProfile} alt="" /> :
+                                                        <img src={`${pic}${Nonplayer.member_id.profile_image}`} alt="" style={{ height: "50px", width: "50px", borderRadius: "50%" }} />
+                                                    }
+                                                    </td>
+                                                    <td>
+                                                        <span>{Nonplayer.member_id.fname}{Nonplayer.member_id.lname}</span>
+                                                    </td>
+                                                    <td>
+                                                        <span>{Nonplayer.jersey_number}</span>
+                                                    </td>
+                                                    <td>{Nonplayer.member_id.fname}<br></br>
+                                                        {Nonplayer.member_id.email}
+
+                                                    </td>
+                                                    <td>
+                                                        <div class="last-row">
+                                                            <p>{Nonplayer.position}</p> <button data-toggle="modal" data-target="#assignmentdelect"><img src={Delect} /></button> <button><img src={pencil} /></button>
+                                                        </div>
+                                                    </td>
+                                                </tr>
 
                                             )
                                         })}
 
-                                        
+
 
 
                                     </table>
@@ -417,7 +413,7 @@ function TeamRoster(props) {
                     </div>
                 </div>
             </div>
-        </div>
+        </div >
     );
 }
 

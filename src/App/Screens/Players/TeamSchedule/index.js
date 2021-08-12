@@ -24,13 +24,14 @@ import { ToastContainer, toast } from 'react-toastify';
 import { logoutUser } from "../../../Redux/Actions/auth";
 
 
-function TeamSchedule(props) {
+function PlayerSchedule(props) {
     const history = useHistory();
     const dispatch = useDispatch()
 
     const [userMe, setUser] = useState(null);
     const [user, setUserData] = useState({});
     const [schedule,setSchedule] =useState([])
+    const [team,setTeam] =useState([])
 
     useEffect(() => {
         // let user = userdata && userdata._id ? true : false;
@@ -42,6 +43,7 @@ function TeamSchedule(props) {
         let userD = userLocal && userLocal._id ? true : false;
         setUser(userD);
         setUserData(userLocal);
+        teamSelect()
         teamSchedule()
     }, []);
 
@@ -54,9 +56,40 @@ function TeamSchedule(props) {
     };
 
 
-
-    const teamSchedule=()=>{
+    const teamSelect = () => {
         const user = JSON.parse(localStorage.getItem('user'));
+        if (user) {
+            let header = {
+                'authToken': user.authtoken
+
+            }
+            console.log('user', user)
+
+            Network('api/player-joined-team-list?player_id=' + user._id, 'GET', header)
+                .then(async (res) => {
+                    console.log("res----", res)
+                    if (res.response_code == 4000) {
+                        dispatch(logoutUser(null))
+                        localStorage.removeItem("user");
+                        history.push("/")
+                        toast.error(res.response_message)
+                    }
+
+                    setTeam(res.response_data);
+                    // if(res.response_data.length!=0){
+                        teamSchedule(res.response_data[0]._id);
+                    // }
+                   
+
+                })
+        }
+    }
+
+
+
+    const teamSchedule=(id)=>{
+        const user = JSON.parse(localStorage.getItem('user'));
+        console.log("id<<<<<",id)
         if (user) {
           let header = {
             'authToken': user.authtoken
@@ -64,7 +97,7 @@ function TeamSchedule(props) {
           }
           console.log('user',user)
         
-        Network('api/get-game-event-list-for-player?user_id=60b639e96587cf14ebce5af6&page=1&limit=10', 'GET',header)
+        Network('api/get-game-event-list-for-player?user_id='+user._id+'&page=1&limit=10', 'GET',header)
           .then(async (res) => {
             console.log("schedule----", res)
 
@@ -74,10 +107,16 @@ function TeamSchedule(props) {
                 history.push("/")
                 toast.error(res.response_message)
             }
+            setSchedule(res.response_data.docs)
            
             
         })
       }
+    }
+    const change = (event) => {
+        console.log("event", event.target.value)
+       
+        teamSchedule(event.target.value);
     }
 
 
@@ -89,10 +128,15 @@ function TeamSchedule(props) {
                     <div class="dashboard-main-content">
                         <div class="dashboard-head">
                             <div class="teams-select">
-                                <select>
-                                    <option>My Teams</option>
-                                    <option>My Teams 2</option>
-                                    <option>My Teams 3</option>
+                            <select onClick={change}>
+                                    <option>Select Team</option>
+                                    {team.map((team) => {
+                                        return (
+                                            <option value={team.team_id._id}>{team.team_id.team_name}</option>
+                                        )
+                                    })}
+
+
                                 </select>
                             </div>
 
@@ -132,16 +176,7 @@ function TeamSchedule(props) {
                                     <button class="start-stream-btn">Subscribe/ Export</button>
                                 </div>
                             </div>
-                            <div class="manager-player-section">
-                                <h3>Manager:</h3>
-                                <ul>
-                                <Link to="/NewEvent">
-            <li><a href="#" >New</a></li>
-          </Link>
-                                    <li><a href="#">Edit</a></li>
-                                    <li><a href="#">Import</a></li>
-                                </ul>
-                            </div>
+                            
                             <div class="prefarance-box">
                                 <div class="team-payment team-assesment">
                                     <table>
@@ -153,129 +188,40 @@ function TeamSchedule(props) {
                                             <th>Assignments</th>
                                             <th>Volunteer</th>
                                         </tr>
-                                        <tr>
+                                        {schedule.map((schedule)=>{
+                                            return(
+                                                <tr>
+
                                             <td>
                                                 <div class="flag-prac">
-                                                    <img src={flag} alt="" />
-                                                    <button class="practice">Practice</button>
+                                                <img src={schedule.display_icon.image} alt=""  style={{height:"50px",width:"50px",borderRadius:"50%"}}/>
+                                                <button class="practice">{schedule.name}</button>
+                                                    
                                                 </div>
-                                                <div class="game-name">
-                                                    Dubcity Basketball
-Practice</div>
+                                        
                                             </td>
-                                            <td><span>Oct 16, 2021</span></td>
+                                            <td><span>{schedule.date}</span></td>
                                             <td>
-                                                <span>TBD</span>
+                                                <span>{schedule.time.startTime}-{schedule.time.endTime}</span>
                                             </td>
                                             <td>
-                                                <span>Eleanor Murray
-
-Fallon Middle Schoo</span>
+                                                <span>{schedule.location_details},{schedule.location}</span>
                                             </td>
-                                            <td>Scorekeeper
-                                    <div class="add-btn">
-                                                    <button><img src={add} alt="" /></button>
-                                                </div>
+                                            <td>{schedule.assignment}
+                                    
                                             </td>
                                             <td>
                                                 <div class="last-row">
-                                                    <p>Avaneesh Shetti</p> <button data-toggle="modal" data-target="#assignmentdelect"><img src={Delect} /></button> <button><img src={pencil} /></button>
+                                                    <p>Avaneesh Shett</p> <button data-toggle="modal" data-target="#assignmentdelect" ><img src={Delect} />
+                                                    </button> <button><img src={pencil} /></button>
                                                 </div>
                                             </td>
                                         </tr>
+                                            )
 
-                                        <tr>
-                                            <td>
-                                                <div class="flag-prac">
-                                                    <img src={flag} alt="" />
-                                                    <button class="practice">Practice</button>
-                                                </div>
-                                                <div class="game-name">
-                                                    Dubcity Basketball
-Practice</div>
-                                            </td>
-                                            <td><span>Oct 16, 2021</span></td>
-                                            <td>
-                                                <span>TBD</span>
-                                            </td>
-                                            <td>
-                                                <span>Eleanor Murray
+                                        })}
 
-Fallon Middle Schoo</span>
-                                            </td>
-                                            <td>Scorekeeper
-                                    <div class="add-btn">
-                                                    <button><img src={add} alt="" /></button>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="last-row">
-                                                    <p>Avaneesh Shetti</p> <button><img src={Delect} /></button> <button><img src={pencil} /></button>
-                                                </div>
-                                            </td>
-                                        </tr>
-
-                                        <tr>
-                                            <td>
-                                                <div class="flag-prac">
-                                                    <img src={flag} alt="" />
-                                                    <button class="practice">Practice</button>
-                                                </div>
-                                                <div class="game-name">
-                                                    Dubcity Basketball
-Practice</div>
-                                            </td>
-                                            <td><span>Oct 16, 2021</span></td>
-                                            <td>
-                                                <span>TBD</span>
-                                            </td>
-                                            <td>
-                                                <span>Eleanor Murray
-
-Fallon Middle Schoo</span>
-                                            </td>
-                                            <td>Scorekeeper
-                                    <div class="add-btn">
-                                                    <button><img src={add} alt="" /></button>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="last-row">
-                                                    <p>Avaneesh Shetti</p> <button><img src={Delect} /></button> <button><img src={pencil} /></button>
-                                                </div>
-                                            </td>
-                                        </tr>
-
-                                        <tr>
-                                            <td>
-                                                <div class="flag-prac">
-                                                    <img src={flag} alt="" />
-                                                    <button class="practice">Practice</button>
-                                                </div>
-                                                <div class="game-name">
-                                                    Dubcity Basketball
-Practice</div>
-                                            </td>
-                                            <td><span>Oct 16, 2021</span></td>
-                                            <td>
-                                                <span>TBD</span>
-                                            </td>
-                                            <td>
-                                                <span>Eleanor Murray
-
-Fallon Middle Schoo</span>
-                                            </td>
-                                            <td>Scorekeeper
-                                    <div class="add-btn">
-                                                    <button><img src={add} alt="" /></button>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="last-row">
-                                                    <p>Avaneesh Shetti</p> <button><img src={Delect} /></button> <button><img src={pencil} /></button>
-                                                </div>
-                                            </td>
-                                        </tr>
+                                        
 
 
                                     </table>
@@ -290,4 +236,4 @@ Fallon Middle Schoo</span>
     );
 }
 
-export default TeamSchedule;
+export default PlayerSchedule;
