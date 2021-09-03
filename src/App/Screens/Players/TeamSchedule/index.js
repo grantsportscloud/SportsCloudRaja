@@ -166,7 +166,9 @@ function PlayerSchedule(props) {
                                     <div class="stream-tab">
                                         <ul>
                                             <li><a class="active" href="#">List View</a></li>
-                                            <li><a href="#">Calendar View</a></li>
+                                            <li onClick={()=>{
+                                                history.push("/ViewCalender")
+                                            }}><a href="#">Calendar View</a></li>
 
                                         </ul>
                                     </div>

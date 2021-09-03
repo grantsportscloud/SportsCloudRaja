@@ -19,6 +19,7 @@ import LiabilityWaiver from "../Screens/Players/liabilityWaiver"
 import TeamAvailability from '../Screens/Players/TeamAvailability/TeamAvailability';
 import Scorekeeper from '../Screens/Players/ScoreKeeper/ScoreKeeper';
 import AddShopData from '../Screens/Players/PlayerTeamShop/AddShopData';
+import ViewCalender from '../Screens/Players/TeamSchedule/ViewCalender'
 
 // Team manger
 import ManagerHome from './../Screens/Manager/Home';
@@ -106,6 +107,7 @@ function RouterScreen() {
                                         <Route path='/TeamAvailability' component={TeamAvailability} />
                                         <Route path='/Scorekeeper' component={Scorekeeper} />
                                         <Route path='/AddShopData' component={AddShopData} />
+                                        <Route path='/ViewCalender' component={ViewCalender} />
                                         
                                     </>
                                     :
