@@ -41,6 +41,18 @@ import TeamPayment from '../Screens/Manager/TeamPayment/TeamPayment';
 import TeamLiabilityWaiver from '../Screens/Manager/TeamLiabilityWaiver/LiabilityWaiver';
 import ManagerTeamShop from '../Screens/Manager/ManagerTeamShop/ManagerShop';
 import TeamAssignments from '../Screens/Manager/TeamAssignment/TeamAssignment';
+import MyAccount from '../Screens/Manager/Home/MyAccount';
+import NavBarSide from '../Screens/Manager/Home/NabBar';
+import Household from '../Screens/Manager/Home/Household';
+import Preference from '../Screens/Manager/Home/Preference';
+import LoginAccount from '../Screens/Manager/Home/loginAccount';
+import ImportPlayer from '../Screens/Manager/Roster/ImportPlayer';
+import PlayerInfo from '../Screens/Manager/Roster/PlayerInfo';
+import EditLocation from '../Screens/Manager/TeamSchedule/EditLocation';
+import NewLocation from '../Screens/Manager/TeamSchedule/NewLocation';
+import EditOponent from '../Screens/Manager/TeamSchedule/EditOponent';
+import NewOponent from '../Screens/Manager/TeamSchedule/NewOponent';
+import Subscribe from '../Screens/Manager/TeamSchedule/Subscribe';
 
 import NotFound from "./../../Error"
 
@@ -120,6 +132,18 @@ function RouterScreen() {
                                         <Route path='/TeamMedia' component={TeamMedia} />
                                         <Route path='/TeamPayment' component={TeamPayment} />
                                         <Route path='/TeamLiabilityWaiver' component={TeamLiabilityWaiver} />
+                                        <Route path='/MyAccount' component={MyAccount} />
+                                        <Route path='/NavBarSide' component={NavBarSide} />
+                                        <Route path='/Household' component={Household} />
+                                        <Route path='/Preference' component={Preference} />
+                                        <Route path='/LoginAccount' component={LoginAccount} />
+                                        <Route path='/ImportPlayer' component={ImportPlayer} />
+                                        <Route path='/PlayerInfo' component={PlayerInfo} />
+                                        <Route path='/EditLocation' component={EditLocation} />
+                                        <Route path='/NewLocation' component={NewLocation} />
+                                        <Route path='/EditOponent' component={EditOponent} />
+                                        <Route path='/NewOponent' component={NewOponent} />
+                                        <Route path='/Subscribe' component={Subscribe} />
                                     </>
 
                             }

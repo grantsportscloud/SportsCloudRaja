@@ -504,11 +504,13 @@ function ManagerRoster(props) {
                                         )
                                     })}
                                 </select>
-                                <select>
-                                    <option>Account</option>
-                                    <option>Account1</option>
-                                    <option>Account2</option>
-                                </select>
+                                <select onClick={()=>{
+                    history.push("/MyAccount")
+                  }}>
+                  <option >Account</option>
+                  <option>Account 2</option>
+                  <option>Account 3</option>
+                </select>
                                 </div>: ""}
                            
                             </div>
@@ -526,7 +528,7 @@ function ManagerRoster(props) {
                             <div class="player-info-head">
                                 <h2 class="page-title">Roster</h2>
                                 <div class="player-info-head-right">
-                                    <button class="edit-btn" style={{width:"265px"}}>Manage My Player Info</button>
+                                    <button class="edit-btn" style={{width:"265px"}} onClick={()=>history.push('./PlayerInfo')}>Manage My Player Info</button>
                                     <button class="add-new-family" style={{width:"324px"}}>+ Add or Edit My Family Member</button>
                                     <button class="edit-btn" style={{marginLeft:"5px"}}>Export</button>
                                 </div>
@@ -536,7 +538,7 @@ function ManagerRoster(props) {
                                 <h3>Maneger</h3>
                                 <ul >
                                     <li onClick={()=>history.push('./AddPlayer')}><a href="#" style={{color:"red"}}>+ Add Player</a></li>
-                                    <li><a href="#" style={{color:"red"}}>Import Players</a></li>
+                                    <li onClick={()=>history.push('./ImportPlayer')}><a href="#" style={{color:"red"}}>Import Players</a></li>
                                     <li><a href="#" style={{color:"red"}}>Import From Another Teams</a></li>
                                 </ul>
                                 

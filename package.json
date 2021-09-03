@@ -5,6 +5,7 @@
   "dependencies": {
     "@date-io/date-fns": "^2.11.0",
     "@material-ui/pickers": "^3.3.10",
+    "@syncfusion/ej2-react-calendars": "^19.2.55",
     "@testing-library/jest-dom": "^5.11.6",
     "@testing-library/react": "^11.2.2",
     "@testing-library/user-event": "^12.2.2",
@@ -14,8 +15,10 @@
     "react": "^17.0.1",
     "react-bootstrap": "^1.4.0",
     "react-calendar": "^3.4.0",
+    "react-chartjs-2": "^3.0.4",
     "react-datepicker": "^3.8.0",
     "react-dom": "^17.0.1",
+    "react-donut-chart": "^1.1.8",
     "react-facebook-login": "^4.1.1",
     "react-file-viewer": "^1.2.1",
     "react-google-recaptcha": "^2.1.0",

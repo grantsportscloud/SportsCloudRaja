@@ -176,10 +176,10 @@ function PlayerTeamShop(props) {
                   {shopData.length==0?
                   <div class="team-shop-list-main">
                    <div class="team-shop-product-box">
-                    <div class="team-shop-product-img" onClick={
-                      history.push("/AddShopData")
-                    }>
-                      <img src={listImage} alt="" />
+                    <div class="team-shop-product-img"  >
+                       <Link to={{ pathname: "/AddShopData", state: "GAME" }} >
+                      <img src={listImage} alt=""  />
+                      </Link>
                     </div>
                     <div class="team-shop-product-text">
                       <h2 class="product-title">Nike Edition</h2>

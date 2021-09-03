@@ -49,6 +49,13 @@ const AddPlayer = () => {
     const [position, setPosition] = useState()
     const [assignment, setAssingment] = useState()
     const [uniform, setUniform] = useState()
+    const [schedule, setSchedule] = useState([])
+    const [dropdown, setDropdown] = useState([])
+    const [teamDropdown, setTeamDropDown] = useState("")
+
+    const [valueDropDown, setValueDropDown] = useState("")
+    const [eventType, setEventType] = useState()
+
     useEffect(() => {
 
         const userLocal = JSON.parse(localStorage.getItem("user"));
@@ -57,6 +64,7 @@ const AddPlayer = () => {
         setUser(userD);
         setUserData(userLocal);
         playerData()
+        dropdownMenu();
 
 
     }, []);
@@ -191,217 +199,381 @@ const AddPlayer = () => {
 
 
 
+    const handleLogout = () => {
+        //console.log("pruyuuuuuu", props);
+        // dispatch(logoutUser(null));
+        localStorage.removeItem("user");
+        setUserData(null);
+        history.push("/")
+    };
+
+
+
+
+
+
+    const dropdownMenu = () => {
+        const user = JSON.parse(localStorage.getItem('user'));
+        if (user) {
+            let header = {
+                'authToken': user.authtoken
+
+            }
+            //console.log('user',user)
+
+            Network('api/my-team-list?team_manager_id=' + user._id, 'GET', header)
+                .then(async (res) => {
+                    console.log("dropdown----", res)
+                    if (res.response_code == 4000) {
+                        dispatch(logoutUser(null))
+                        localStorage.removeItem("user");
+                        history.push("/")
+                        toast.error(res.response_message)
+                    }
+                    setDropdown(res.response_data);
+
+                    teamSchedule(res.response_data[0]._id);
+
+
+
+
+
+                })
+        }
+
+    }
+    const change = (event) => {
+        console.log("event", event.target.value)
+        setTeamDropDown(event.target.value)
+        teamSchedule(event.target.value);
+    }
+
+
+
+
+
+    const teamSchedule = (id) => {
+        console.log("id", id)
+        const user = JSON.parse(localStorage.getItem('user'));
+        if (user) {
+            let header = {
+
+                'authToken': user.authtoken
+
+            }
+
+            let url = ""
+            if (id != undefined) {
+
+                url = 'api/get-game-event-list?manager_id=' + user._id + '&team_id=' + id + '&page=1&limit=10'
+            }
+            else {
+                url = 'api/get-game-event-list?manager_id=' + user._id + '&team_id=' + teamDropdown + '&page=1&limit=10'
+            }
+            //console.log('user',user)
+            Network('api/get-game-event-list?manager_id=' + user._id + '&team_id=' + id + '&page=1&limit=10', 'GET', header)
+                .then(async (res) => {
+                    console.log("schedule----", res)
+                    if (res.response_code == 4000) {
+                        dispatch(logoutUser(null))
+                        localStorage.removeItem("user");
+                        history.push("/")
+                        toast.error(res.response_message)
+                    }
+                    //console.log("doc data----->",res.response_data.docs)
+                    setSchedule(res.response_data.docs)
+
+
+                })
+        }
+    }
+    const flagList = () => {
+        const user = JSON.parse(localStorage.getItem('user'));
+        if (user) {
+            let header = {
+                'authToken': user.authtoken
+
+            }
+            //console.log('user',user)
+
+            Network('api/all-flag-list', 'GET', header)
+                .then(async (res) => {
+                    console.log("flagList----", res)
+                    if (res.response_code == 4000) {
+                        dispatch(logoutUser(null))
+                        localStorage.removeItem("user");
+                        history.push("/")
+                        toast.error(res.response_message)
+                    }
+
+
+
+                })
+        }
+    }
+
+
+    const deleteScheduleData = (id) => {
+        const user = JSON.parse(localStorage.getItem('user'));
+        console.log("id-------------->", id)
+        const requestOptions = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'x-access-token': user.authtoken
+            },
+            body: JSON.stringify({
+                "_id": id
+            })
+        };
+        fetch('https://nodeserver.mydevfactory.com:1447/api/delete-assignment', requestOptions)
+            .then(response => response.json())
+            .then((res) => {
+                console.log("delete assignment data", res)
+                if (res.response_code == 4000) {
+                    dispatch(logoutUser(null))
+                    localStorage.removeItem("user");
+                    history.push("/")
+                    toast.error(res.response_message)
+                }
+                teamSchedule()
+
+
+
+            })
+
+    }
+
+
+
     return (
         <div class="prefarance-box player-info" style={{ height: "100%", marginTop: "0px", borderRadius: "0px" }}>
 
             <SideMenuComponents manger="manger" />
+            <div class="dashboard-main-content">
+                <div class="dashboard-head">
+                    <div class="teams-select">
+                        <button class="create-new-team" onClick={() => history.push("./CreateTeam")}>Create New Teams</button>
 
-            <ul class="nav nav-tabs" role="tablist">
-                <li class="nav-item">
-                    <a class="nav-link active" data-toggle="tab" href="#tabs-1" role="tab"><h1 style={{ color: "white", fontSize: "35px" }}>New Member</h1> </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" href="#tabs-2" role="tab">Member Info</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" href="#tabs-3" role="tab">Contact Information</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" href="#tabs-4" role="tab">Optional PLayer Details</a>
-                </li>
-                <li class="nav-item">
-                    <div style={{ backgroundColor: "gray", borderRadius: "10px" }}>
-                        <h3 style={{ color: "white", padding: "10px" }}> Reordering People</h3>
-                        <p style={{ color: "white", padding: "10px" }}>In short, don't! Everyone receives the same information, regardless of their order in the list. Changing an email to another person's email address does not give them access. To invite some-one new, use the "Add New Family Member" button. Learn more in our help center.</p>
+                        <select onChange={change} value={teamDropdown == "" ? dropdown[0]?._id : teamDropdown} >
+                            {dropdown.map((dropdown) => {
+                                return (
+                                    <option value={dropdown._id}>{dropdown.team_name}</option>
+                                )
+                            })}
+                        </select>
+                        <select onClick={()=>{
+                    history.push("/MyAccount")
+                  }}>
+                  <option >Account</option>
+                  <option>Account 2</option>
+                  <option>Account 3</option>
+                </select>
                     </div>
-                </li>
 
-            </ul>
-            <div class="tab-content">
-                <div class="tab-pane active" id="tabs-1" role="tabpanel">
-                    <div class="prefarance-tab-content">
-
-                        <div class="dashboard-head">
-                            <div class="teams-select">
-                                <button class="create-new-team" onClick={() => {
-                                    history.push("/CreateTeam")
-                                }}>Create New Teams</button>
-                                <select>
-                                    <option>My Teams</option>
-                                    <option>New Team</option>
-                                </select>
-                                <select>
-                                    <option>Account</option>
-                                    <option>Account1</option>
-                                    <option>Account2</option>
-                                </select>
-                            </div>
-                            <div class="profile-head">
-                                <div class="profile-head-name">Jayanta</div>
-                                <div class="profile-head-img">
+                    <div class="profile-head">
+                        <div class="profile-head-name">{user ? user.fname : null}</div>
+                        <div class="profile-head-img">
+                            {
+                                user ?
+                                    <img src={user.profile_image} alt="" /> :
                                     <img src={UserProfile} alt="" />
-                                </div>
-                            </div>
+                            }
+
                         </div>
+                    </div>
+                    <div class="login-account">
+                        <ul>
+                            <li><a href="#" data-toggle="modal" data-target="#myModallogin" onClick={handleLogout}>Logout</a></li>
+                            {/* <li><a href="#" data-toggle="modal" data-target="#myModalregister" onClick={handleLogout}>Logout</a></li> */}
+                        </ul>
+                    </div>
+                </div>
+                <div class="prefarance-box" style={{ overflow: "auto" }} >
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" data-toggle="tab" href="#tabs-1" role="tab"><h1 style={{ color: "white", fontSize: "35px" }}>New Member</h1> </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#tabs-2" role="tab">Member Info</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#tabs-3" role="tab">Contact Information</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#tabs-4" role="tab">Optional PLayer Details</a>
+                        </li>
+                        <li class="nav-item">
+                            <div style={{ backgroundColor: "gray", borderRadius: "10px" }}>
+                                <h3 style={{ color: "white", padding: "10px" }}> Reordering People</h3>
+                                <p style={{ color: "white", padding: "10px" }}>In short, don't! Everyone receives the same information, regardless of their order in the list. Changing an email to another person's email address does not give them access. To invite some-one new, use the "Add New Family Member" button. <span style={{ color: "red" }}>Learn more</span> in our help center.</p>
+                            </div>
+                        </li>
+
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="tabs-1" role="tabpanel">
+                            <div class="prefarance-tab-content">
+
+                                <div class="prefarance-form playerinfo-form">
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="prefarance-form-list">
+                                                <label> First Name</label>
+                                                <input type="text" class="input-select" onChange={(e) => setFName(e.target.value)} />
+                                            </div>
+                                        </div>
 
 
-                        <div class="prefarance-form playerinfo-form">
+                                        <div class="col-md-6">
+                                            <div class="prefarance-form-list">
+                                                <label>Last Name</label>
+                                                <input type="text" class="input-select" onChange={(e) => setLName(e.target.value)} />
 
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="prefarance-form-list">
-                                        <label> First Name</label>
-                                        <input type="text" class="input-select" onChange={(e) => setFName(e.target.value)} />
-                                    </div>
-                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="prefarance-form-list">
+                                                <label>Non Player</label>
+                                                <input type="checkbox" style={{ height: "15px", width: "17px" }} />
+                                                <span style={{ color: "white" }}>This person is a non playing player of the team </span>
 
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="prefarance-form-list">
+                                                <label>Email</label>
+                                                <input type="text" class="input-select" onChange={(e) => setEmail(e.target.value)} />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="prefarance-form-list">
+                                                <label>Whoe's This? </label>
+                                                <input type="text" class="input-select" onChange={(e) => setWho(e.target.value)} />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="prefarance-form-list" style={{ justifyContent: "flex-end", display: "flex" }}>
+                                                <button data-toggle="modal" data-target="#assignmentdelect" style={{ borderRadius: "12px", backgroundColor: "red", }}><img src={Delect} /></button>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="prefarance-form-list" style={{ justifyContent: "flex-end", display: "flex" }}>
+                                                <p style={{ color: "white" }}> +Add Another Email</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="prefarance-form-list">
+                                                <label>Phone Number</label>
+                                                <input type="text" class="input-select" onChange={(e) => setPhone(e.target.value)} />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="prefarance-form-list">
+                                                <label>Label</label>
+                                                <input type="text" class="input-select" onChange={(e) => setLabel(e.target.value)} />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="prefarance-form-list" style={{ justifyContent: "flex-end", display: "flex" }}>
+                                                <button data-toggle="modal" data-target="#assignmentdelect" style={{ borderRadius: "12px", backgroundColor: "red", }}><img src={Delect} /></button>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="prefarance-form-list" style={{ justifyContent: "flex-end", display: "flex" }}>
+                                                <p style={{ color: "white" }}> +Add Another Phone Number</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="prefarance-form-list">
+                                                <label>Address</label>
+                                                <input type="text" class="input-select" onChange={(e) => setAddress(e.target.value)} />
+                                            </div>
+                                        </div>
 
-                                <div class="col-md-6">
-                                    <div class="prefarance-form-list">
-                                        <label>Last Name</label>
-                                        <input type="text" class="input-select" onChange={(e) => setLName(e.target.value)} />
+                                        <div class="col-md-6">
+                                            <div class="prefarance-form-list">
+                                                <label>City</label>
+                                                <input type="text" class="input-select" onChange={(e) => setCity(e.target.value)} />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="prefarance-form-list">
+                                                <label >State/Province</label>
+                                                <input type="text" class="input-select" onChange={(e) => setState(e.target.value)} />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="prefarance-form-list">
+                                                <label>Zip/Postal Code</label>
+                                                <input type="text" class="input-select" onChange={(e) => setZip(e.target.value)} />
 
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="prefarance-form-list">
-                                        <label>Non Player</label>
-                                        <input type="checkbox" style={{ height: "15px", width: "17px" }} />
-                                        <span style={{ color: "white" }}>This person is a non playing player of the team </span>
+                                            </div>
+                                        </div>
 
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="prefarance-form-list">
-                                        <label>Email</label>
-                                        <input type="text" class="input-select" onChange={(e) => setEmail(e.target.value)} />
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="prefarance-form-list">
-                                        <label>Whoe's This? </label>
-                                        <input type="text" class="input-select" onChange={(e) => setWho(e.target.value)} />
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="prefarance-form-list" style={{ justifyContent: "flex-end", display: "flex" }}>
-                                        <button data-toggle="modal" data-target="#assignmentdelect" style={{ borderRadius: "12px", backgroundColor: "red", }}><img src={Delect} /></button>
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="prefarance-form-list" style={{ justifyContent: "flex-end", display: "flex" }}>
-                                        <p style={{ color: "white" }}> +Add Another Email</p>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="prefarance-form-list">
-                                        <label>Phone Number</label>
-                                        <input type="text" class="input-select" onChange={(e) => setPhone(e.target.value)} />
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="prefarance-form-list">
-                                        <label>Label</label>
-                                        <input type="text" class="input-select" onChange={(e) => setLabel(e.target.value)} />
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="prefarance-form-list" style={{ justifyContent: "flex-end", display: "flex" }}>
-                                        <button data-toggle="modal" data-target="#assignmentdelect" style={{ borderRadius: "12px", backgroundColor: "red", }}><img src={Delect} /></button>
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="prefarance-form-list" style={{ justifyContent: "flex-end", display: "flex" }}>
-                                        <p style={{ color: "white" }}> +Add Another Phone Number</p>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="prefarance-form-list">
-                                        <label>Address</label>
-                                        <input type="text" class="input-select" onChange={(e) => setAddress(e.target.value)} />
-                                    </div>
-                                </div>
+                                        <div class="col-md-6">
+                                            <div class="prefarance-form-list">
+                                                <label>Gender</label>
+                                                <input type="text" class="input-select" onChange={(e) => setGender(e.target.value)} />
 
-                                <div class="col-md-6">
-                                    <div class="prefarance-form-list">
-                                        <label>City</label>
-                                        <input type="text" class="input-select" onChange={(e) => setCity(e.target.value)} />
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="prefarance-form-list">
-                                        <label >State/Province</label>
-                                        <input type="text" class="input-select" onChange={(e) => setState(e.target.value)} />
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="prefarance-form-list">
-                                        <label>Zip/Postal Code</label>
-                                        <input type="text" class="input-select" onChange={(e) => setZip(e.target.value)} />
+                                            </div>
+                                        </div>
 
-                                    </div>
-                                </div>
+                                        <div class="col-md-6">
+                                            <div class="prefarance-form-list">
+                                                <label>Birthday</label>
+                                                <div class="input-select" >
+                                                    <DatePicker selected={startDate} show="false" onChange={(date) => setStartDate(date)} />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="prefarance-form-list">
+                                                <label >Jursey Number</label>
+                                                <input type="text" class="input-select" onChange={(e) => setJursey(e.target.value)} />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="prefarance-form-list">
+                                                <label >Position</label>
+                                                <input type="text" class="input-select" onChange={(e) => setPosition(e.target.value)} />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="prefarance-form-list">
+                                                <label>Assignment</label>
+                                                <input type="text" class="input-select" onChange={(e) => setAssingment(e.target.value)} />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="prefarance-form-list">
+                                                <label>Uniform</label>
+                                                <input type="text" class="input-select" onChange={(e) => setUniform(e.target.value)} />
 
-                                <div class="col-md-6">
-                                    <div class="prefarance-form-list">
-                                        <label>Gender</label>
-                                        <input type="text" class="input-select" onChange={(e) => setGender(e.target.value)} />
+                                            </div>
+                                        </div>
 
-                                    </div>
-                                </div>
-
-                                <div class="col-md-6">
-                                    <div class="prefarance-form-list">
-                                        <label>Birthday</label>
-                                        <div class="input-select" >
-                                            <DatePicker selected={startDate} show="false" onChange={(date) => setStartDate(date)} />
+                                        <div class="col-md-6">
+                                            <div class="prefarance-form-list">
+                                                <input type="checkbox" style={{ height: "15px", width: "17px" }} />
+                                                <span style={{ color: "white" }}>Invite to join </span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="prefarance-form-list">
+                                                <button class="add-links">CANCEL</button>
+                                                <button class="add-links" style={{ backgroundColor: "#181717", marginLeft: "5px" }} onClick={CheckValidatiion}>SAVE</button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="prefarance-form-list">
-                                        <label >Jursey Number</label>
-                                        <input type="text" class="input-select" onChange={(e) => setJursey(e.target.value)} />
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="prefarance-form-list">
-                                        <label >Position</label>
-                                        <input type="text" class="input-select" onChange={(e) => setPosition(e.target.value)} />
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="prefarance-form-list">
-                                        <label>Assignment</label>
-                                        <input type="text" class="input-select" onChange={(e) => setAssingment(e.target.value)} />
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="prefarance-form-list">
-                                        <label>Uniform</label>
-                                        <input type="text" class="input-select" onChange={(e) => setUniform(e.target.value)} />
-
-                                    </div>
-                                </div>
-
-                                <div class="col-md-6">
-                                    <div class="prefarance-form-list">
-                                        <input type="checkbox" style={{ height: "15px", width: "17px" }} />
-                                        <span style={{ color: "white" }}>Invite to join </span>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="prefarance-form-list">
-                                        <button class="add-links">CANCEL</button>
-                                        <button class="add-links" style={{ backgroundColor: "#181717", marginLeft: "5px" }} onClick={CheckValidatiion}>SAVE</button>
-                                    </div>
-                                </div>
                             </div>
                         </div>
+
+
                     </div>
                 </div>
-
-
             </div>
         </div>
 

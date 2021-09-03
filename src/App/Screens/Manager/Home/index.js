@@ -28,8 +28,17 @@ import Footer from "../../../Components/Footer"
 import { useDispatch } from 'react-redux';
 import { Network } from '../../../Services/Api';
 import { ToastContainer, toast } from 'react-toastify';
+import Calendar from 'react-calendar';
+import { CalendarComponent } from '@syncfusion/ej2-react-calendars';
+import 'react-calendar/dist/Calendar.css';
 import { compose } from 'redux';
 import axios from 'axios'
+import "../../../../../node_modules/@syncfusion/ej2-base/styles/material.css";
+import "../../../../../node_modules/@syncfusion/ej2-buttons/styles/material.css";
+import "../../../../../node_modules/@syncfusion/ej2-inputs/styles/material.css";
+import "../../../../../node_modules/@syncfusion/ej2-popups/styles/material.css";
+import "../../../../../node_modules/@syncfusion/ej2-react-calendars/styles/material.css";
+import DonutChart from 'react-donut-chart';
 
 
 
@@ -45,13 +54,17 @@ function ManagerHome(props) {
   const [user, setUserData] = useState({});
   const [image, Profile] = useState(BigUserProfile)
   const [picture, setPicture] = useState(teamList)
-  const [degree, setDegree] = useState("")
+  const [degree, setDegree] = useState([])
   const [team, setTeam] = useState([])
   // const [loading,setLoading]= useState(false)
   const [photo, setPhoto] = useState()
   const [teamId, setTeamId] = useState("")
   const [schedule, setSchedule] = useState([])
   const [profilePic, setProfilePic] = useState([])
+  const [value, onChange] = useState(new Date());
+  const dateValue  = new Date( new Date().getFullYear(),new Date().getMonth());
+  const minDate  = new Date(new Date().getFullYear(),new Date().getMonth(),new Date());
+  const maxDate  = new Date(new Date().getFullYear(),new Date().getMonth(),31);
 
   useEffect(() => {
     // let user = userdata && userdata._id ? true : false;
@@ -81,6 +94,22 @@ function ManagerHome(props) {
     setUserData(null);
     props.history.push("/")
   };
+
+  const dataSet = {
+    labels: ['January', 'February', 'March',
+             'April', 'May'],
+    datasets: [
+      {
+        label: 'Rainfall',
+        fill: false,
+        lineTension: 0.5,
+        backgroundColor: 'rgba(75,192,192,1)',
+        borderColor: 'rgba(0,0,0,1)',
+        borderWidth: 2,
+        data: [65, 59, 80, 81, 56]
+      }
+    ]
+  }
 
   const listTeam = () => {
     const user = JSON.parse(localStorage.getItem('user'));
@@ -218,15 +247,23 @@ function ManagerHome(props) {
   // }
 
   const weather = () => {
-    fetch('http://api.openweathermap.org/data/2.5/weather?q=kolkata&appid=2986831fc21dc86b9c0a3f789cec2721')
-      .then((res) => {
-        res.json()
-          .then((result) => {
-            console.log(" weather", result)
-            console.log(" degree", result.wind.deg)
-            setDegree(result.wind.deg)
-          })
+    fetch(
+      // 'http://api.openweathermap.org/data/2.5/weather?q=Mumbai&appid=2986831fc21dc86b9c0a3f789cec2721'
+      'https://api.openweathermap.org/data/2.5/onecall?lat=33.44&lon=-94.04&exclude=hourly,minutely&units=matric&appid=2986831fc21dc86b9c0a3f789cec2721'
+    ).then((res) => {
+      res.json().then((res) => {
+        console.log("weather", res.daily)
+        if(res.daily!=null){
+          setDegree(res.daily)
+        }
+       
+ 
+
       })
+    })
+
+
+
   }
 
   const teamSelect = () => {
@@ -246,7 +283,7 @@ function ManagerHome(props) {
             localStorage.removeItem("user");
             history.push("/")
             toast.error(res.response_message)
-        }
+          }
           setTeam(res.response_data)
           teamSchedule(res.response_data[0]._id);
 
@@ -370,7 +407,8 @@ function ManagerHome(props) {
   //    })
   //   }
   //  }
-
+  const backgroundColor=['brown','red','black','purple','blue','yellow','green']
+  console.log("degree",degree)
 
   return (
     <div>
@@ -386,15 +424,17 @@ function ManagerHome(props) {
                 }}>Create New Teams</button>
                 <select onChange={change} >
 
-                  {team==null? <option> Team1</option>:
+                  {team == null ? <option> Team1</option> :
                     team.map((team) => {
                       return (
                         <option key={team.id}>{team.team_name}</option>
                       )
                     })}
                 </select>
-                <select>
-                  <option>Account</option>
+                <select onClick={() => {
+                  history.push("/MyAccount")
+                }}>
+                  <option >Account</option>
                   <option>Account 2</option>
                   <option>Account 3</option>
                 </select>
@@ -465,33 +505,67 @@ function ManagerHome(props) {
 
                     <h2>Dublin-Weather</h2>
 
-
-                    <div class="dublin-weather-bottom">
-                      <div class="dublin-weather-bottom-boxes">
+                    {degree.length==0?
+                    <div>
+              <div class="dublin-weather-bottom">
+                          <div class="dublin-weather-bottom-boxes">
                         <h3>Today</h3>
                         <img src={Cloudy} alt="" />
-
+                      
                         <div class="active-degree">
-                          <span>{degree}</span>
-                          <p>64˚/50˚</p>
+                         <p>34˚/30˚</p>
+                          
                         </div>
                       </div>
-                      <div class="dublin-weather-bottom-boxes">
-                        <h3>Sat</h3>
-                        <img src={Cloudy} alt="" />
-                        <h6>66˚ <span>48˚</span></h6>
-                      </div>
-                      <div class="dublin-weather-bottom-boxes">
-                        <h3>Sun</h3>
-                        <img src={Cloudy} alt="" />
-                        <h6>66˚ <span>48˚</span></h6>
-                      </div>
-                      <div class="dublin-weather-bottom-boxes">
-                        <h3>Mon</h3>
-                        <img src={Cloudy} alt="" />
-                        <h6>66˚ <span>48˚</span></h6>
-                      </div>
-                    </div>
+                       <div class="dublin-weather-bottom-boxes">
+                       <h3>Sat</h3>
+                       <img src={Cloudy} alt="" />
+                       <p>34˚/30˚</p>
+                      
+                     </div>
+                     <div class="dublin-weather-bottom-boxes">
+                       <h3>Sun</h3>
+                       <img src={Cloudy} alt="" />
+                       <p>34˚/30˚</p>
+                      
+                     </div>
+                     <div class="dublin-weather-bottom-boxes">
+                       <h3>Mon</h3>
+                       <img src={Cloudy} alt="" />
+                       <p>34˚/30˚</p>
+                      
+                     </div>
+                    </div></div>:
+                    <div><div class="dublin-weather-bottom">
+                    <div class="dublin-weather-bottom-boxes">
+                  <h3>Today</h3>
+                  <img src={Cloudy} alt="" />
+                
+                  <div class="active-degree">
+                   <p>{degree[0].temp.max}˚/{degree[0].temp.min}˚</p>
+                    
+                  </div>
+                </div>
+                 <div class="dublin-weather-bottom-boxes">
+                 <h3>Sat</h3>
+                 <img src={Cloudy} alt="" />
+                   <p>{degree[1].temp.max}˚/{degree[1].temp.min}˚</p>
+                
+               </div>
+               <div class="dublin-weather-bottom-boxes">
+                 <h3>Sun</h3>
+                 <img src={Cloudy} alt="" />
+                  <p>{degree[2].temp.max}˚/{degree[2].temp.min}˚</p> 
+                
+               </div>
+               <div class="dublin-weather-bottom-boxes">
+                 <h3>Mon</h3>
+                 <img src={Cloudy} alt="" />
+                  <p>{degree[3].temp.max}˚/{degree[3].temp.min}˚</p> 
+                
+               </div>
+              </div></div>}
+                    
                   </div>
                 </div>
               </div>
@@ -557,7 +631,56 @@ function ManagerHome(props) {
 
               <div class="record-standing-box">
                 <div class="pie-chat-total-income">
-                  <img src={piechat} alt="" />
+                  {/* <img src={piechat} alt="" /> */}
+                  <div style={{display:'flex',flexDirection:"row"}}>
+                  <h2 style={{color:"white"}}>Total Income</h2>
+                  <div style={{marginLeft:"100px"}}>
+                  <select style={{backgroundColor:"#484848",padding:"10px",marginRight:"10px",borderRadius:"10px"}}>
+                    <option> Monthly</option>
+                  </select>
+                  <select style={{backgroundColor:"#484848",padding:"10px",borderRadius:"10px"}}>
+                    <option> Pie Chart</option>
+                  </select>
+                  </div>
+                  </div>
+                 
+                  <DonutChart
+    data={[
+      {
+        label: '8U Brown',
+        value: 25,
+        style:{fill:"black"}
+    },
+    {
+      label: '8U Red',
+      value: 10
+  },
+  {
+    label: '8U Black',
+    value: 12
+},
+{
+  label: '8U Purple',
+  value: 13
+},
+{
+  label: '8U Blue',
+  value: 5
+},
+{
+  label: '8U Yellow',
+  value: 20,
+  color: 'yellow'
+},
+{
+  label: '8U Green',
+  value: 25
+},
+
+
+   ]}
+   backgroundColor={backgroundColor}
+    />
                 </div>
 
               </div>
@@ -579,12 +702,17 @@ function ManagerHome(props) {
                       <span class="checkmark"></span>
                     </label>
                   </div>
-                  <div class="dashboard-schedule-game-event">
-                    <div class="dashboard-schedule-game-event-calender">
-                      <img src={Calender} alt="" />
-                    </div>
-
-                  </div>
+                  {/* <div class="dashboard-schedule-game-event">
+                    <div class="dashboard-schedule-game-event-calender"> */}
+                      {/* <img src={Calender} alt="" /> */}
+                      {/* <div>
+                        <Calendar
+                          onChange={onChange}
+                          value={value}
+                        /></div> */}
+                        <CalendarComponent  />
+                    {/* </div>
+                  </div> */}
 
                 </div>
               </div>
