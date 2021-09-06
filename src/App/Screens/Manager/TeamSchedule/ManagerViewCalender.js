@@ -19,119 +19,183 @@ import TeamList from "../../../images/team-list.png"
 import SideMenuComponents from "../../../Components/SideMenu"
 import flag from "../../../images/flag.png"
 import UserProfile from "../../../images/user-profile.png"
-import './viewCalender.css'
+import './ManagerViewCalender.css'
 
-const ViewCalender =()=>{
-    const history = useHistory()
+const ManagerViewCalender =()=>{
+    const history = useHistory();
     const dispatch = useDispatch()
+
     const [userMe, setUser] = useState(null);
     const [user, setUserData] = useState({});
-    const [player, setPlayer] = useState([]);
-    const [resData, setResData] = useState({})
-    const [nonPlayer, setNonPlayer] = useState([])
+    const [schedule, setSchedule] = useState([])
     const [dropdown, setDropdown] = useState([])
     const [teamDropdown, setTeamDropDown] = useState("")
-    const [team, setTeam] = useState([]);
 
+    const [valueDropDown, setValueDropDown] = useState("")
+    const [eventType, setEventType] = useState()
 
-
-
-    // const [Nonplayer,setNonPlayer]= useState([]);
 
     useEffect(() => {
         // let user = userdata && userdata._id ? true : false;
-        // console.log("userMe===>", user);
-        setUser(user);
-        // console.log("USerData", userdata);
+        // //console.log("userMe===>", user);
+        dropdownMenu();
+        // setUser(user);
+        // //console.log("USerData", userdata);
         const userLocal = JSON.parse(localStorage.getItem("user"));
-        console.log("userData after login--->", userLocal)
+        //console.log("userData after login--->", userLocal)
         let userD = userLocal && userLocal._id ? true : false;
         setUser(userD);
         setUserData(userLocal);
-        teamSelect()
-        teamRoster();
-       
-       
+        flagList()
+        deleteScheduleData()
+
+        // teamSchedule();
 
     }, []);
 
-    const pic = 'https://nodeserver.mydevfactory.com:1447/'
-
     const handleLogout = () => {
-        // console.log("pruyuuuuuu", props);
+        //console.log("pruyuuuuuu", props);
         // dispatch(logoutUser(null));
         localStorage.removeItem("user");
         setUserData(null);
         history.push("/")
     };
-    const teamRoster = (id) => {
-        const user = JSON.parse(localStorage.getItem('user'));
-        console.log("id---->",id)
-        if (user) {
-            let header = {
-                'authToken': user.authtoken
-
-            }
-            console.log('user', user)
-
-            Network('api/player-list-by-team-id?team_id=' + id, 'GET', header)
-                .then(async (res) => {
-                    console.log("teamRoster----", res)
-
-                    if (res.response_code == 4000) {
-                        dispatch(logoutUser(null))
-                        localStorage.removeItem("user");
-                        history.push("/")
-                        toast.error(res.response_message)
-                    }
-                    setResData(res.response_data);
-                    console.log("team player", res.response_data.PLAYER)
-                    console.log("non player", res.response_data.NON_PLAYER)
-                    setPlayer(res.response_data.PLAYER)
-                    setNonPlayer(res.response_data.NON_PLAYER)
-
-
-                })
-        }
-    }
 
 
 
-    const teamSelect = () => {
+
+
+
+    const dropdownMenu = () => {
         const user = JSON.parse(localStorage.getItem('user'));
         if (user) {
             let header = {
                 'authToken': user.authtoken
 
             }
-            console.log('user', user)
+            //console.log('user',user)
 
-            Network('api/player-joined-team-list?player_id=' + user._id, 'GET', header)
+            Network('api/my-team-list?team_manager_id=' + user._id, 'GET', header)
                 .then(async (res) => {
-                    console.log("res----", res)
+                    console.log("dropdown----", res)
                     if (res.response_code == 4000) {
                         dispatch(logoutUser(null))
                         localStorage.removeItem("user");
                         history.push("/")
                         toast.error(res.response_message)
                     }
+                    setDropdown(res.response_data);
 
-                    setTeam(res.response_data);
-                    // if(res.response_data.length!=0){
-                        teamRoster(res.response_data[0]._id);
-                    // }
-                   
+                    teamSchedule(res.response_data[0]._id);
+
+
+
+
 
                 })
         }
+
     }
-
-    
-
     const change = (event) => {
         console.log("event", event.target.value)
         setTeamDropDown(event.target.value)
-        teamRoster(event.target.value);
+        teamSchedule(event.target.value);
+    }
+
+
+
+
+
+    const teamSchedule = (id) => {
+        console.log("id", id)
+        const user = JSON.parse(localStorage.getItem('user'));
+        if (user) {
+            let header = {
+
+                'authToken': user.authtoken
+
+            }
+
+            let url = ""
+            if (id != undefined) {
+
+                url = 'api/get-game-event-list?manager_id=' + user._id + '&team_id=' + id + '&page=1&limit=10'
+            }
+            else {
+                url = 'api/get-game-event-list?manager_id=' + user._id + '&team_id=' + teamDropdown + '&page=1&limit=10'
+            }
+            //console.log('user',user)
+            Network('api/get-game-event-list?manager_id=' + user._id + '&team_id=' + id + '&page=1&limit=10', 'GET', header)
+                .then(async (res) => {
+                    console.log("schedule----", res)
+                    if (res.response_code == 4000) {
+                        dispatch(logoutUser(null))
+                        localStorage.removeItem("user");
+                        history.push("/")
+                        toast.error(res.response_message)
+                    }
+                    //console.log("doc data----->",res.response_data.docs)
+                    setSchedule(res.response_data.docs)
+
+
+                })
+        }
+    }
+    const flagList = () => {
+        const user = JSON.parse(localStorage.getItem('user'));
+        if (user) {
+            let header = {
+                'authToken': user.authtoken
+
+            }
+            //console.log('user',user)
+
+            Network('api/all-flag-list', 'GET', header)
+                .then(async (res) => {
+                    console.log("flagList----", res)
+                    if (res.response_code == 4000) {
+                        dispatch(logoutUser(null))
+                        localStorage.removeItem("user");
+                        history.push("/")
+                        toast.error(res.response_message)
+                    }
+
+
+
+                })
+        }
+    }
+
+
+    const deleteScheduleData = (id) => {
+        const user = JSON.parse(localStorage.getItem('user'));
+        console.log("id-------------->", id)
+        const requestOptions = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'x-access-token': user.authtoken
+            },
+            body: JSON.stringify({
+                "_id": id
+            })
+        };
+        fetch('https://nodeserver.mydevfactory.com:1447/api/delete-assignment', requestOptions)
+            .then(response => response.json())
+            .then((res) => {
+                console.log("delete assignment data", res)
+                if (res.response_code == 4000) {
+                    dispatch(logoutUser(null))
+                    localStorage.removeItem("user");
+                    history.push("/")
+                    toast.error(res.response_message)
+                }
+                teamSchedule()
+
+
+
+            })
+
     }
     return(
         <div class="prefarance-box player-info" style={{ height: "100%", marginTop: "0px", borderRadius: "0px" }}>
@@ -141,15 +205,12 @@ const ViewCalender =()=>{
                     <div class="teams-select">
                         <button class="create-new-team" onClick={() => history.push("./CreateTeam")}>Create New Teams</button>
 
-                        <select onClick={change}>
-                                    <option>Select Team</option>
-                                    {team.map((team) => {
+                        <select onChange={change} value={teamDropdown == "" ? dropdown[0]?._id : teamDropdown} >
+                                    {dropdown.map((dropdown) => {
                                         return (
-                                            <option value={team.team_id._id}>{team.team_id.team_name}</option>
+                                            <option value={dropdown._id}>{dropdown.team_name}</option>
                                         )
                                     })}
-
-
                                 </select>
                         <select>
                             <option>Account</option>
@@ -325,4 +386,4 @@ const ViewCalender =()=>{
     )
 }
 
-export default ViewCalender ;
+export default ManagerViewCalender ;

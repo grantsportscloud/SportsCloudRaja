@@ -26,6 +26,12 @@ import Footer from "../../../Components/Footer"
 import { useDispatch } from 'react-redux';
 import { Network } from '../../../Services/Api';
 import { ToastContainer, toast } from 'react-toastify';
+import { CalendarComponent } from '@syncfusion/ej2-react-calendars';
+import "../../../../../node_modules/@syncfusion/ej2-base/styles/material.css";
+import "../../../../../node_modules/@syncfusion/ej2-buttons/styles/material.css";
+import "../../../../../node_modules/@syncfusion/ej2-inputs/styles/material.css";
+import "../../../../../node_modules/@syncfusion/ej2-popups/styles/material.css";
+import "../../../../../node_modules/@syncfusion/ej2-react-calendars/styles/material.css";
 
 
 function HomeComponents(props) {
@@ -36,6 +42,7 @@ function HomeComponents(props) {
   const [user, setUserData] = useState({});
   const [player,setPlayer]= useState([]);
   const [team,setTeam]=useState([]);
+  const [degree, setDegree] = useState([])
 
   // const [loading,setLoading]= useState(false)
   const [ profilePic,setProfilePic] = useState([])
@@ -56,6 +63,7 @@ function HomeComponents(props) {
     teamSelect()
     teamRoster()
     updateProfile()
+    weather()
   }, []);
   const pic='https://nodeserver.mydevfactory.com:1447/'
 
@@ -143,6 +151,26 @@ const teamRoster=()=>{
 
   }
 
+  const weather = () => {
+    fetch(
+      // 'http://api.openweathermap.org/data/2.5/weather?q=Mumbai&appid=2986831fc21dc86b9c0a3f789cec2721'
+      'https://api.openweathermap.org/data/2.5/onecall?lat=33.44&lon=-94.04&exclude=hourly,minutely&units=matric&appid=2986831fc21dc86b9c0a3f789cec2721'
+    ).then((res) => {
+      res.json().then((res) => {
+        console.log("weather", res.daily)
+        if(res.daily!=null){
+          setDegree(res.daily)
+        }
+       
+ 
+
+      })
+    })
+
+
+
+  }
+
 
 
 
@@ -221,32 +249,66 @@ const teamRoster=()=>{
                 <div class="dashboard-top-content-left-bottom">
                   <div class="dublin-weather">
                     <h2>Local Weather</h2>
-                    <div class="dublin-weather-bottom">
-                      <div class="dublin-weather-bottom-boxes">
+                    {degree.length==0?
+                    <div>
+              <div class="dublin-weather-bottom">
+                          <div class="dublin-weather-bottom-boxes">
                         <h3>Today</h3>
                         <img src={Cloudy} alt="" />
-
+                      
                         <div class="active-degree">
-                          <span>53˚F</span>
-                          <p>64˚/50˚</p>
+                         <p>34˚/30˚</p>
+                          
                         </div>
                       </div>
-                      <div class="dublin-weather-bottom-boxes">
-                        <h3>Sat</h3>
-                        <img src={Cloudy} alt="" />
-                        <h6>66˚ <span>48˚</span></h6>
-                      </div>
-                      <div class="dublin-weather-bottom-boxes">
-                        <h3>Sun</h3>
-                        <img src={Cloudy} alt="" />
-                        <h6>66˚ <span>48˚</span></h6>
-                      </div>
-                      <div class="dublin-weather-bottom-boxes">
-                        <h3>Mon</h3>
-                        <img src={Cloudy} alt="" />
-                        <h6>66˚ <span>48˚</span></h6>
-                      </div>
-                    </div>
+                       <div class="dublin-weather-bottom-boxes">
+                       <h3>Sat</h3>
+                       <img src={Cloudy} alt="" />
+                       <p>34˚/30˚</p>
+                      
+                     </div>
+                     <div class="dublin-weather-bottom-boxes">
+                       <h3>Sun</h3>
+                       <img src={Cloudy} alt="" />
+                       <p>34˚/30˚</p>
+                      
+                     </div>
+                     <div class="dublin-weather-bottom-boxes">
+                       <h3>Mon</h3>
+                       <img src={Cloudy} alt="" />
+                       <p>34˚/30˚</p>
+                      
+                     </div>
+                    </div></div>:
+                    <div><div class="dublin-weather-bottom">
+                    <div class="dublin-weather-bottom-boxes">
+                  <h3>Today</h3>
+                  <img src={Cloudy} alt="" />
+                
+                  <div class="active-degree">
+                   <p>{degree[0].temp.max}˚/{degree[0].temp.min}˚</p>
+                    
+                  </div>
+                </div>
+                 <div class="dublin-weather-bottom-boxes">
+                 <h3>Sat</h3>
+                 <img src={Cloudy} alt="" />
+                   <p>{degree[1].temp.max}˚/{degree[1].temp.min}˚</p>
+                
+               </div>
+               <div class="dublin-weather-bottom-boxes">
+                 <h3>Sun</h3>
+                 <img src={Cloudy} alt="" />
+                  <p>{degree[2].temp.max}˚/{degree[2].temp.min}˚</p> 
+                
+               </div>
+               <div class="dublin-weather-bottom-boxes">
+                 <h3>Mon</h3>
+                 <img src={Cloudy} alt="" />
+                  <p>{degree[3].temp.max}˚/{degree[3].temp.min}˚</p> 
+                
+               </div>
+              </div></div>}
                   </div>
                 </div>
               </div>
@@ -394,12 +456,13 @@ const teamRoster=()=>{
                       <span class="checkmark"></span>
                     </label>
                   </div>
-                  <div class="dashboard-schedule-game-event">
+                  {/* <div class="dashboard-schedule-game-event">
                     <div class="dashboard-schedule-game-event-calender">
                       <img src={Calender} alt="" />
                     </div>
 
-                  </div>
+                  </div> */}
+                     <CalendarComponent  />
 
                 </div>
               </div>

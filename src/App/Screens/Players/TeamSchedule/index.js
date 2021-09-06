@@ -173,9 +173,9 @@ function PlayerSchedule(props) {
                                         </ul>
                                     </div>
 
-                                    <button class="start-stream-btn">Select Availability</button>
+                                    <button class="start-stream-btn" onClick={() => history.push('./TeamAvailability')}>Select Availability</button>
                                     <button class="start-stream-btn">View Preferences</button>
-                                    <button class="start-stream-btn">Subscribe/ Export</button>
+                                    <button class="start-stream-btn" onClick={() => history.push('./Export')}>Subscribe/ Export</button>
                                 </div>
                             </div>
                             

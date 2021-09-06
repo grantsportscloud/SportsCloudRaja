@@ -62,9 +62,9 @@ function ManagerHome(props) {
   const [schedule, setSchedule] = useState([])
   const [profilePic, setProfilePic] = useState([])
   const [value, onChange] = useState(new Date());
-  const dateValue  = new Date( new Date().getFullYear(),new Date().getMonth());
-  const minDate  = new Date(new Date().getFullYear(),new Date().getMonth(),new Date());
-  const maxDate  = new Date(new Date().getFullYear(),new Date().getMonth(),31);
+  const dateValue = new Date(new Date().getFullYear(), new Date().getMonth());
+  const minDate = new Date(new Date().getFullYear(), new Date().getMonth(), new Date());
+  const maxDate = new Date(new Date().getFullYear(), new Date().getMonth(), 31);
 
   useEffect(() => {
     // let user = userdata && userdata._id ? true : false;
@@ -97,7 +97,7 @@ function ManagerHome(props) {
 
   const dataSet = {
     labels: ['January', 'February', 'March',
-             'April', 'May'],
+      'April', 'May'],
     datasets: [
       {
         label: 'Rainfall',
@@ -253,11 +253,11 @@ function ManagerHome(props) {
     ).then((res) => {
       res.json().then((res) => {
         console.log("weather", res.daily)
-        if(res.daily!=null){
+        if (res.daily != null) {
           setDegree(res.daily)
         }
-       
- 
+
+
 
       })
     })
@@ -407,8 +407,8 @@ function ManagerHome(props) {
   //    })
   //   }
   //  }
-  const backgroundColor=['brown','red','black','purple','blue','yellow','green']
-  console.log("degree",degree)
+  const backgroundColor = ['brown', 'red', 'black', 'purple', 'blue', 'yellow', 'green']
+  console.log("degree", degree)
 
   return (
     <div>
@@ -431,13 +431,48 @@ function ManagerHome(props) {
                       )
                     })}
                 </select>
-                <select onClick={() => {
+                {/* <select >
+                  <option onClick={() => {
                   history.push("/MyAccount")
-                }}>
-                  <option >Account</option>
-                  <option>Account 2</option>
-                  <option>Account 3</option>
-                </select>
+                }}> Jayanta Karmakar</option>
+                  <option > My Account</option>
+                  <option>Credits</option>
+                  <option>My Household</option>
+                  <option>Manage My Team</option>
+                  <option> Biling & Plans</option>
+                  <option> Create A New Team</option>
+                  <option> Sign Out</option>
+                </select> */}
+                <div >
+                  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" style={{ backgroundColor: "#2C2C2C", border: "none" }}>
+                    ACCOUNT
+                  </button>
+                  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1" style={{ backgroundColor: "#484848", listStyle: "none", margin: "14px" }}>
+                      <li><a class="dropdown-item" href="#">Jayanta Karmakar</a></li>
+                    <Link to={{ pathname: "/MyAccount"}} >
+                      <li><a class="dropdown-item" href="#">My Account</a></li>
+                    </Link>
+                    <Link to={{ pathname: "/Credit"}} >
+                      <li><a class="dropdown-item" href="#">Credits</a></li>
+                    </Link>
+                    <Link to={{ pathname: "/Household" }} >
+                      <li><a class="dropdown-item" href="#">My HouseHold</a></li>
+                    </Link>
+                    <Link to={{ pathname: "/ManageTeam" }} >
+                      <li><a class="dropdown-item" href="#">Manage My Team</a></li>
+                    </Link>
+                    <Link to={{ pathname: "/Biling" }} >
+                      <li><a class="dropdown-item" href="#">Biling & Plans</a></li>
+                    </Link>
+                    <Link to={{ pathname: "/CreateTeam" }} >
+                      <li><a class="dropdown-item" href="#">Create New Team</a></li>
+                    </Link>
+                    <Link to={{ pathname: "/SignOut" }} >
+                      <li><a class="dropdown-item" href="#">Sign Out</a></li>
+                    </Link>
+
+                  </ul>
+                </div>
               </div>
 
               {/* <div class="profile-head">
@@ -505,67 +540,67 @@ function ManagerHome(props) {
 
                     <h2>Dublin-Weather</h2>
 
-                    {degree.length==0?
-                    <div>
-              <div class="dublin-weather-bottom">
+                    {degree.length == 0 ?
+                      <div>
+                        <div class="dublin-weather-bottom">
                           <div class="dublin-weather-bottom-boxes">
-                        <h3>Today</h3>
-                        <img src={Cloudy} alt="" />
-                      
-                        <div class="active-degree">
-                         <p>34˚/30˚</p>
-                          
+                            <h3>Today</h3>
+                            <img src={Cloudy} alt="" />
+
+                            <div class="active-degree">
+                              <p>34˚/30˚</p>
+
+                            </div>
+                          </div>
+                          <div class="dublin-weather-bottom-boxes">
+                            <h3>Sat</h3>
+                            <img src={Cloudy} alt="" />
+                            <p>34˚/30˚</p>
+
+                          </div>
+                          <div class="dublin-weather-bottom-boxes">
+                            <h3>Sun</h3>
+                            <img src={Cloudy} alt="" />
+                            <p>34˚/30˚</p>
+
+                          </div>
+                          <div class="dublin-weather-bottom-boxes">
+                            <h3>Mon</h3>
+                            <img src={Cloudy} alt="" />
+                            <p>34˚/30˚</p>
+
+                          </div>
+                        </div></div> :
+                      <div><div class="dublin-weather-bottom">
+                        <div class="dublin-weather-bottom-boxes">
+                          <h3>Today</h3>
+                          <img src={Cloudy} alt="" />
+
+                          <div class="active-degree">
+                            <p>{degree[0].temp.max}˚/{degree[0].temp.min}˚</p>
+
+                          </div>
                         </div>
-                      </div>
-                       <div class="dublin-weather-bottom-boxes">
-                       <h3>Sat</h3>
-                       <img src={Cloudy} alt="" />
-                       <p>34˚/30˚</p>
-                      
-                     </div>
-                     <div class="dublin-weather-bottom-boxes">
-                       <h3>Sun</h3>
-                       <img src={Cloudy} alt="" />
-                       <p>34˚/30˚</p>
-                      
-                     </div>
-                     <div class="dublin-weather-bottom-boxes">
-                       <h3>Mon</h3>
-                       <img src={Cloudy} alt="" />
-                       <p>34˚/30˚</p>
-                      
-                     </div>
-                    </div></div>:
-                    <div><div class="dublin-weather-bottom">
-                    <div class="dublin-weather-bottom-boxes">
-                  <h3>Today</h3>
-                  <img src={Cloudy} alt="" />
-                
-                  <div class="active-degree">
-                   <p>{degree[0].temp.max}˚/{degree[0].temp.min}˚</p>
-                    
-                  </div>
-                </div>
-                 <div class="dublin-weather-bottom-boxes">
-                 <h3>Sat</h3>
-                 <img src={Cloudy} alt="" />
-                   <p>{degree[1].temp.max}˚/{degree[1].temp.min}˚</p>
-                
-               </div>
-               <div class="dublin-weather-bottom-boxes">
-                 <h3>Sun</h3>
-                 <img src={Cloudy} alt="" />
-                  <p>{degree[2].temp.max}˚/{degree[2].temp.min}˚</p> 
-                
-               </div>
-               <div class="dublin-weather-bottom-boxes">
-                 <h3>Mon</h3>
-                 <img src={Cloudy} alt="" />
-                  <p>{degree[3].temp.max}˚/{degree[3].temp.min}˚</p> 
-                
-               </div>
-              </div></div>}
-                    
+                        <div class="dublin-weather-bottom-boxes">
+                          <h3>Sat</h3>
+                          <img src={Cloudy} alt="" />
+                          <p>{degree[1].temp.max}˚/{degree[1].temp.min}˚</p>
+
+                        </div>
+                        <div class="dublin-weather-bottom-boxes">
+                          <h3>Sun</h3>
+                          <img src={Cloudy} alt="" />
+                          <p>{degree[2].temp.max}˚/{degree[2].temp.min}˚</p>
+
+                        </div>
+                        <div class="dublin-weather-bottom-boxes">
+                          <h3>Mon</h3>
+                          <img src={Cloudy} alt="" />
+                          <p>{degree[3].temp.max}˚/{degree[3].temp.min}˚</p>
+
+                        </div>
+                      </div></div>}
+
                   </div>
                 </div>
               </div>
@@ -632,55 +667,55 @@ function ManagerHome(props) {
               <div class="record-standing-box">
                 <div class="pie-chat-total-income">
                   {/* <img src={piechat} alt="" /> */}
-                  <div style={{display:'flex',flexDirection:"row"}}>
-                  <h2 style={{color:"white"}}>Total Income</h2>
-                  <div style={{marginLeft:"100px"}}>
-                  <select style={{backgroundColor:"#484848",padding:"10px",marginRight:"10px",borderRadius:"10px"}}>
-                    <option> Monthly</option>
-                  </select>
-                  <select style={{backgroundColor:"#484848",padding:"10px",borderRadius:"10px"}}>
-                    <option> Pie Chart</option>
-                  </select>
+                  <div style={{ display: 'flex', flexDirection: "row" }}>
+                    <h2 style={{ color: "white" }}>Total Income</h2>
+                    <div style={{ marginLeft: "100px" }}>
+                      <select style={{ backgroundColor: "#484848", padding: "10px", marginRight: "10px", borderRadius: "10px" }}>
+                        <option> Monthly</option>
+                      </select>
+                      <select style={{ backgroundColor: "#484848", padding: "10px", borderRadius: "10px" }}>
+                        <option> Pie Chart</option>
+                      </select>
+                    </div>
                   </div>
-                  </div>
-                 
+
                   <DonutChart
-    data={[
-      {
-        label: '8U Brown',
-        value: 25,
-        style:{fill:"black"}
-    },
-    {
-      label: '8U Red',
-      value: 10
-  },
-  {
-    label: '8U Black',
-    value: 12
-},
-{
-  label: '8U Purple',
-  value: 13
-},
-{
-  label: '8U Blue',
-  value: 5
-},
-{
-  label: '8U Yellow',
-  value: 20,
-  color: 'yellow'
-},
-{
-  label: '8U Green',
-  value: 25
-},
+                    data={[
+                      {
+                        label: '8U Brown',
+                        value: 25,
+                        style: { fill: "black" }
+                      },
+                      {
+                        label: '8U Red',
+                        value: 10
+                      },
+                      {
+                        label: '8U Black',
+                        value: 12
+                      },
+                      {
+                        label: '8U Purple',
+                        value: 13
+                      },
+                      {
+                        label: '8U Blue',
+                        value: 5
+                      },
+                      {
+                        label: '8U Yellow',
+                        value: 20,
+                        color: 'yellow'
+                      },
+                      {
+                        label: '8U Green',
+                        value: 25
+                      },
 
 
-   ]}
-   backgroundColor={backgroundColor}
-    />
+                    ]}
+                    backgroundColor={backgroundColor}
+                  />
                 </div>
 
               </div>
@@ -688,7 +723,9 @@ function ManagerHome(props) {
               <div class="dashboard-schedule-section">
                 <div class="dashboard-schedule-head">
                   <h2>Schedule</h2>
-                  <a href="#">View Full Schedule</a>
+                  <a href="#" onClick={() => {
+                    history.push('./Teamschdule')
+                  }}>View Full Schedule</a>
                 </div>
                 <div class="dashboard-schedule-main-box">
                   <div class="dashboard-schedule-main-box-option">
@@ -704,14 +741,14 @@ function ManagerHome(props) {
                   </div>
                   {/* <div class="dashboard-schedule-game-event">
                     <div class="dashboard-schedule-game-event-calender"> */}
-                      {/* <img src={Calender} alt="" /> */}
-                      {/* <div>
+                  {/* <img src={Calender} alt="" /> */}
+                  {/* <div>
                         <Calendar
                           onChange={onChange}
                           value={value}
                         /></div> */}
-                        <CalendarComponent  />
-                    {/* </div>
+                  <CalendarComponent />
+                  {/* </div>
                   </div> */}
 
                 </div>

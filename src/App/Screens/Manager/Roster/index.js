@@ -529,8 +529,8 @@ function ManagerRoster(props) {
                                 <h2 class="page-title">Roster</h2>
                                 <div class="player-info-head-right">
                                     <button class="edit-btn" style={{width:"265px"}} onClick={()=>history.push('./PlayerInfo')}>Manage My Player Info</button>
-                                    <button class="add-new-family" style={{width:"324px"}}>+ Add or Edit My Family Member</button>
-                                    <button class="edit-btn" style={{marginLeft:"5px"}}>Export</button>
+                                    <button class="add-new-family" style={{width:"324px"}} onClick={()=>history.push('./PlayerInfo')}>+ Add or Edit My Family Member</button>
+                                    <button class="edit-btn" style={{marginLeft:"5px"}} onClick={()=>history.push('./Subscribe')}>Export</button>
                                 </div>
                             </div>
 
@@ -539,7 +539,7 @@ function ManagerRoster(props) {
                                 <ul >
                                     <li onClick={()=>history.push('./AddPlayer')}><a href="#" style={{color:"red"}}>+ Add Player</a></li>
                                     <li onClick={()=>history.push('./ImportPlayer')}><a href="#" style={{color:"red"}}>Import Players</a></li>
-                                    <li><a href="#" style={{color:"red"}}>Import From Another Teams</a></li>
+                                    <li><a href="#" style={{color:"red"}} onClick={()=>history.push('./AnotherPlayer')}>Import From Another Teams</a></li>
                                 </ul>
                                 
                             </div>: ""}

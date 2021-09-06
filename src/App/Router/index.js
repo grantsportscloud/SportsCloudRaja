@@ -20,7 +20,11 @@ import TeamAvailability from '../Screens/Players/TeamAvailability/TeamAvailabili
 import Scorekeeper from '../Screens/Players/ScoreKeeper/ScoreKeeper';
 import AddShopData from '../Screens/Players/PlayerTeamShop/AddShopData';
 import ViewCalender from '../Screens/Players/TeamSchedule/ViewCalender'
-
+import TeamPlayerInfo from '../Screens/Players/TeamRoster/TeamPlayerInfo';
+import TeamPlayerInfoNav from '../Screens/Players/TeamRoster/TeamPlayerInfoNav';
+import TeamImportPlayer from '../Screens/Players/TeamRoster/TeamPlayerImport';
+import TeamAddPlayer from '../Screens/Players/TeamRoster/TeamAddPlayer';
+import Export from '../Screens/Players/TeamSchedule/Export';
 // Team manger
 import ManagerHome from './../Screens/Manager/Home';
 import TeamSchdule from "./../Screens/Manager/TeamSchedule"
@@ -54,6 +58,16 @@ import NewLocation from '../Screens/Manager/TeamSchedule/NewLocation';
 import EditOponent from '../Screens/Manager/TeamSchedule/EditOponent';
 import NewOponent from '../Screens/Manager/TeamSchedule/NewOponent';
 import Subscribe from '../Screens/Manager/TeamSchedule/Subscribe';
+import ManagerViewCalender from '../Screens/Manager/TeamSchedule/ManagerViewCalender';
+import TeamSettingHome from '../Screens/Manager/TeamSetteing/teamSettingHome';
+import SettingNav from '../Screens/Manager/TeamSetteing/settingNav';
+import SitePreference from '../Screens/Manager/TeamSetteing/SitePreference';
+import Biling from '../Screens/Manager/Home/Bilings';
+import ManageTeam from '../Screens/Manager/Home/ManageTeam';
+import Credit from '../Screens/Manager/Home/Credit';
+import AnotherPlayer from '../Screens/Manager/Roster/AnotherPlayer';
+import TeamStatistics from '../Screens/Manager/Team Statistics/TeamStatistic';
+import TeamOrganizer from '../Screens/Manager/TeamOrganizer/TeamOrganizer';
 
 import NotFound from "./../../Error"
 
@@ -108,6 +122,11 @@ function RouterScreen() {
                                         <Route path='/Scorekeeper' component={Scorekeeper} />
                                         <Route path='/AddShopData' component={AddShopData} />
                                         <Route path='/ViewCalender' component={ViewCalender} />
+                                        <Route path='/TeamPlayerInfo' component={TeamPlayerInfo} />
+                                        <Route path='/TeamPlayerInfoNav' component={TeamPlayerInfoNav} />
+                                        <Route path='/TeamImportPlayer' component={TeamImportPlayer} />
+                                        <Route path='/TeamAddPlayer' component={TeamAddPlayer} />
+                                        <Route path='/Export' component={Export} />
                                         
                                     </>
                                     :
@@ -146,6 +165,17 @@ function RouterScreen() {
                                         <Route path='/EditOponent' component={EditOponent} />
                                         <Route path='/NewOponent' component={NewOponent} />
                                         <Route path='/Subscribe' component={Subscribe} />
+                                        <Route path='/ManagerViewCalender' component={ManagerViewCalender} />
+                                        <Route path='/TeamSettingHome' component={TeamSettingHome} />
+                                        <Route path='/SettingNav' component={SettingNav} />
+                                        <Route path='/SitePreference' component={SitePreference} />
+                                        <Route path='/Credit' component={Credit} />
+                                        <Route path='/ManageTeam' component={ManageTeam} />
+                                        <Route path='/Biling' component={Biling} />
+                                        <Route path='/AnotherPlayer' component={AnotherPlayer} />
+                                        <Route path='/TeamStatistics' component={TeamStatistics} />
+                                        <Route path='/TeamOrganizer' component={TeamOrganizer} />
+
                                     </>
 
                             }

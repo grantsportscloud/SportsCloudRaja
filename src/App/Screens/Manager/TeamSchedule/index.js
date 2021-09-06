@@ -269,7 +269,9 @@ function TeamSchdule(props) {
                                     <div class="stream-tab">
                                         <ul>
                                             <li><a class="active" href="#">List View</a></li>
-                                            <li><a href="#">Calendar View</a></li>
+                                            <li><a href="#" onClick={()=>{
+                                                history.push('./ManagerViewCalender')
+                                            }}>Calendar View</a></li>
 
                                         </ul>
                                     </div>

@@ -184,9 +184,9 @@ function TeamRoster(props) {
                             <div class="player-info-head">
                                 <h2 class="page-title">Roster</h2>
                                 <div class="player-info-head-right">
-                                    <button class="edit-btn" style={{ width: "265px" }}>Manage My Player Info</button>
-                                    <button class="add-new-family" style={{ width: "324px" }}>+ Add or Edit My Family Member</button>
-                                    <button class="edit-btn" style={{ marginLeft: "5px" }}>Export</button>
+                                    <button class="edit-btn" style={{ width: "265px" }}  onClick={() => history.push('./TeamPlayerInfo')}>Manage My Player Info</button>
+                                    <button class="add-new-family" style={{ width: "324px" }}  onClick={() => history.push('./TeamAddPlayer')}>+ Add or Edit My Family Member</button>
+               
                                 </div>
                             </div>
 

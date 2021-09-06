@@ -100,15 +100,23 @@ function SideMenuComponents(props) {
             <Link to="/preferance">
               <li><a href="#" class="menu10">Team Preferences</a></li>
             </Link>
+            <Link to='/TeamSettingHome'>
+            <li><a href="#" class="menu11">Team Settings</a></li>
+            </Link>
+            <Link to='/TeamStatistics'>
+            <li><a href="#" class="menu11">Team Statistics</a></li>
+            </Link>
+            <Link to='/TeamOrganizer'>
+            <li><a href="#" class="menu12">Tournament Organizer</a></li>
+            </Link>
             <Link to = "/TeamLiabilityWaiver">
           <li><a href="#" class="menu11">Liability Waiver</a></li>
           </Link>
             <Link to="/TeamPayment">
               <li><a href="#" class="menu12">Team Payment</a></li>
             </Link>
-            {/* <li><a href="#" class="menu11">Team Settings</a></li>
-            <li><a href="#" class="menu12">Tournament Organizer</a></li>
-            <li><a href="#" class="menu13">Team Store</a></li>
+           
+            {/* <li><a href="#" class="menu13">Team Store</a></li>
             <li><a href="#" class="menu14">Website Adminis tration</a></li>
             <li><a href="#" class="menu15">player Liability Waiver</a></li>
             <li><a href="#" class="menu16" >Invoicing</a></li> */}
